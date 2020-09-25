@@ -2,7 +2,7 @@
 A collection of software and tools I developed for the [Gigatron TTL microcomputer](https://gigatron.io).
 
 ## Software
-### VideoPoker
+### Video Poker
 **WORK IN PROGRESS**
 
 A 5-card poker game for Gigatron developed in at67's gtBASIC.
