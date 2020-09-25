@@ -16,6 +16,9 @@ A 5-card poker game for Gigatron developed in at67's gtBASIC.
 **To-Do:**
 - Win conditions
 - Bank (credits)
+- Display winning hands and payouts
+- Better looking design on back of cards
+- Sounds
 
 ## Tools
 ### CustomFish
