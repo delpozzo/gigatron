@@ -5,7 +5,17 @@ A collection of software and tools I developed for the [Gigatron TTL microcomput
 ### VideoPoker
 **WORK IN PROGRESS**
 
-A 5-card poker game for Gigatron.
+A 5-card poker game for Gigatron developed in at67's gtBASIC.
+
+What Works:
+Deal cards
+Draw cards
+Select card
+Hold card
+
+To-Do:
+Win conditions
+Bank (credits)
 
 ## Tools
 ### CustomFish
