@@ -1,4 +1,4 @@
-# Software for Gigatron
+# Gigatron
 A collection of software and tools I developed for the [Gigatron TTL microcomputer](https://gigatron.io).
 
 ## Software
