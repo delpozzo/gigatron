@@ -7,15 +7,15 @@ A collection of software and tools I developed for the [Gigatron TTL microcomput
 
 A 5-card poker game for Gigatron developed in at67's gtBASIC.
 
-What Works:
-Deal cards
-Draw cards
-Select card
-Hold card
+**What Works:**
+- Deal cards
+- Draw cards
+- Select card
+- Hold card
 
-To-Do:
-Win conditions
-Bank (credits)
+**To-Do:**
+- Win conditions
+- Bank (credits)
 
 ## Tools
 ### CustomFish
