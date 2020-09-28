@@ -62,6 +62,8 @@ currentRound = DEAL
 selectedCard = 0
 pickedCard = 0
 tempCard = 0
+tempValue1 = 0
+tempValue2 = 0
 holdX = 0
 testInput = 255
 
@@ -194,6 +196,7 @@ retry2:     pickedCard = rnd(52)
             endif
         endif
     next i
+    wait 5
 return
 
 ' ------------------
@@ -389,4 +392,21 @@ displayCards:
         endif
         sprite noFlip, cardSuit(hand(4)), 135, 47
     endif
+return
+
+' ------------------
+'   Sort Cards
+' ------------------
+sortCards:
+    for i = 0 to 3
+        for j = (1 + i) to 4
+            tempValue1 = hand(i)
+            tempValue2 = hand(j)
+            if cardValue(tempValue1) &> cardValue(tempValue2)
+                tempCard = hand(i)
+                hand(i) = hand(j)
+                hand(j) = tempCard
+            endif
+        next j
+    next i
 return
