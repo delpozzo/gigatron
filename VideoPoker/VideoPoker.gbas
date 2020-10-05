@@ -64,6 +64,7 @@ pickedCard = 0
 tempCard = 0
 tempValue1 = 0
 tempValue2 = 0
+tempValue3 = 0
 holdX = 0
 inputDevice = 255
 
@@ -115,6 +116,8 @@ handleInput:
             gosub selectCard
             gosub drawCards
             gosub displayCards
+            gosub sortCards
+            gosub threeOfAKind
         else
             currentRound = DEAL
             gosub clearHand
@@ -407,3 +410,38 @@ sortCards:
         next j
     next i
 return
+
+' ------------------
+'   Win Conditions
+' ------------------
+jacksOrBetter:
+    for i = 0 to 4
+        tempValue1 = hand(i)
+        tempValue2 = hand(i+1)
+        if (cardValue(tempValue1) = cardValue(tempValue2)) AND (cardValue(tempValue2) > 10)
+            at 0,0 : print "Jacks or Better!"
+        endif
+    next i
+return
+
+twoPair:
+    if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3))) 
+        at 0,0 : print "Two Pair!"
+    elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4))) 
+        at 0,0 : print "Two Pair!"
+    elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(3)) = cardValue(hand(4))) 
+        at 0,0 : print "Two Pair!"
+    endif
+return
+
+threeOfAKind:
+    for i = 0 to 2
+        tempValue1 = hand(i)
+        tempValue2 = hand(i+1)
+        tempValue3 = hand(i+2)
+        if (cardValue(tempValue1) = cardValue(tempValue2)) AND (cardValue(tempValue2) = cardValue(tempValue3))
+            at 0,0 : print "Three of a Kind!"
+        endif
+    next i
+return
+
