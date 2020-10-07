@@ -72,7 +72,7 @@ inputDevice = 255
 '   Game Setup
 ' ------------------
 gosub initCards
-gosub dealCards
+gosub cheatDeal
 
 gosub displayCards
 gosub selectCard
@@ -117,7 +117,7 @@ handleInput:
             gosub drawCards
             gosub displayCards
             gosub sortCards
-            gosub threeOfAKind
+            gosub flush
         else
             currentRound = DEAL
             gosub clearHand
@@ -178,6 +178,26 @@ retry1: pickedCard = rnd(52)
             goto retry1
         endif
     next i
+
+    selectedCard = 0
+return
+
+' For testing win conditions only:
+cheatDeal:
+    hand(0) = 0
+    cardState(0) = DRAWN
+
+    hand(1) = 1
+    cardState(1) = DRAWN
+
+    hand(2) = 2
+    cardState(2) = DRAWN
+
+    hand(3) = 25
+    cardState(25) = DRAWN
+
+    hand(4) = 3
+    cardState(3) = DRAWN
 
     selectedCard = 0
 return
@@ -443,5 +463,19 @@ threeOfAKind:
             at 0,0 : print "Three of a Kind!"
         endif
     next i
+return
+
+straight:
+    if (cardValue(hand(4)) = cardValue(hand(3))+1) AND (cardValue(hand(3))+1 = cardValue(hand(2))+2) AND (cardValue(hand(2))+2 = cardValue(hand(1))+3) AND (cardValue(hand(1))+3 = cardValue(hand(0))+4)
+        at 0,0 : print "Straight!"
+    elseif (cardValue(hand(4)) = ACE) AND (cardValue(hand(0)) = 2) AND (cardValue(hand(1)) = 3) AND (cardValue(hand(2)) = 4) AND (cardValue(hand(3)) = 5)
+        at 0,0 : print "Straight!"
+    endif
+return
+
+flush:
+    if (cardSuit(hand(0)) = cardSuit(hand(1))) AND (cardSuit(hand(1)) = cardSuit(hand(2))) AND (cardSuit(hand(2)) = cardSuit(hand(3))) AND (cardSuit(hand(3)) = cardSuit(hand(4)))
+        at 0,0 : print "Flush!"
+    endif
 return
 
