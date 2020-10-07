@@ -13,8 +13,20 @@ A 5-card poker game for Gigatron developed in at67's gtBASIC.
 - Select card
 - Hold card
 
-**To-Do:**
+**In Progress:**
+
 - Win conditions
+  - [X] Jacks or Better
+  - [X] Two Pair
+  - [X] Three of a Kind
+  - [X] Straight
+  - [X] Flush
+  - [ ] Full House
+  - [ ] Four of a Kind
+  - [ ] Straight Flush
+  - [ ] Royal Flush
+
+**To-Do:**
 - Bank (credits)
 - Display winning hands and payouts
 - Better looking design on back of cards
