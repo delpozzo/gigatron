@@ -61,6 +61,8 @@ _twoPair                      EQU                               0x2de4
 _threeOfAKind                 EQU                               0x32b8
 _straight                     EQU                               0x33f4
 _flush                        EQU                               0x38d6
+_fullHouse                    EQU                               0x3bb3
+_fourOfAKind                  EQU                               0x3fbc
 _endif_0x02b4                 EQU                               0x02ae
 _endif_0x02c2                 EQU                               0x02bc
 _endif_0x02ff                 EQU                               0x02eb
@@ -196,8 +198,20 @@ _endif_0x1a45                 EQU                               0x38d4
 _page_0x39a0                  EQU                               0x39a0
 _page_0x3aa0                  EQU                               0x3aa0
 _page_0x3ba0                  EQU                               0x3ba0
-_endif_0x1b60                 EQU                               0x3bb1
-_end_0x1b62                   EQU                               0x3bb3
+_endif_0x1b5f                 EQU                               0x3bb1
+_page_0x3ca0                  EQU                               0x3ca0
+_page_0x3da0                  EQU                               0x3da0
+_elseif_0x1c40                EQU                               0x3dbb
+_page_0x3ea0                  EQU                               0x3ea0
+_page_0x3fa0                  EQU                               0x3fa0
+_endif_0x1d1a                 EQU                               0x3fba
+_page_0x40a0                  EQU                               0x40a0
+_page_0x41a0                  EQU                               0x41a0
+_elseif_0x1dfc                EQU                               0x41c1
+_page_0x42a0                  EQU                               0x42a0
+_page_0x43a0                  EQU                               0x43a0
+_endif_0x1ed6                 EQU                               0x43c6
+_end_0x1ed8                   EQU                               0x43c8
 
 ; Global Variables
 _balance                      EQU                               0x0030
@@ -253,6 +267,10 @@ _str_0x72a5                   EQU                               0x72a5
 _str_0x72a5                   DB                                9 'Straight!' 0
 _str_0x71e6                   EQU                               0x71e6
 _str_0x71e6                   DB                                6 'Flush!' 0
+_str_0x71d9                   EQU                               0x71d9
+_str_0x71d9                   DB                                11 'Full House!' 0
+_str_0x71c8                   EQU                               0x71c8
+_str_0x71c8                   DB                                15 'Four of a Kind!' 0
 
 ; Data
 
@@ -293,16 +311,16 @@ def_sprites_0x73a5            DB                                63 63 63 63 63 6
 ; Define Fonts
 
 ; Lookup Tables
-_spriteLut_0x71d8             EQU                               0x71d8
-_spriteLut_0x71d8             DW                                0x7ea5 0x0000 0x7da5 0x0006 0x7ca5 0x000c 0x0000
-_spriteLut_0x71ca             EQU                               0x71ca
-_spriteLut_0x71ca             DW                                0x7ba5 0x0000 0x7aa5 0x0006 0x79a5 0x000c 0x0000
-_spriteLut_0x71bc             EQU                               0x71bc
-_spriteLut_0x71bc             DW                                0x78a5 0x0000 0x77a5 0x0006 0x76a5 0x000c 0x0000
-_spriteLut_0x71ae             EQU                               0x71ae
-_spriteLut_0x71ae             DW                                0x75a5 0x0000 0x74a5 0x0006 0x73a5 0x000c 0x0000
-_spritesLut_                  EQU                               0x71a6
-_spritesLut_                  DW                                0x71d8 0x71ca 0x71bc 0x71ae 
+_spriteLut_0x71ba             EQU                               0x71ba
+_spriteLut_0x71ba             DW                                0x7ea5 0x0000 0x7da5 0x0006 0x7ca5 0x000c 0x0000
+_spriteLut_0x71ac             EQU                               0x71ac
+_spriteLut_0x71ac             DW                                0x7ba5 0x0000 0x7aa5 0x0006 0x79a5 0x000c 0x0000
+_spriteLut_0x70f2             EQU                               0x70f2
+_spriteLut_0x70f2             DW                                0x78a5 0x0000 0x77a5 0x0006 0x76a5 0x000c 0x0000
+_spriteLut_0x70e4             EQU                               0x70e4
+_spriteLut_0x70e4             DW                                0x75a5 0x0000 0x74a5 0x0006 0x73a5 0x000c 0x0000
+_spritesLut_                  EQU                               0x71a4
+_spritesLut_                  DW                                0x71ba 0x71ac 0x70f2 0x70e4 
 
 ; Code
 _entryPoint_                  LDI                               0x28
@@ -455,10 +473,10 @@ _endif_0x030d                 LDW                               _inputDevice
                               LDWI                              _sortCards
                               CALL                              giga_vAC                        ; gosub sortCards
 
-                              LDWI                              _flush
+                              LDWI                              _fourOfAKind
                               CALL                              giga_vAC
                               LDWI                              _endif_0x036c
-                              CALL                              giga_vAC                        ; gosub flush
+                              CALL                              giga_vAC                        ; gosub fourOfAKind
 
 _else_0x0354                  LDI                               1
                               STW                               _currentRound                   ; currentRound = DEAL
@@ -634,33 +652,33 @@ _endif_0x04f7                 ForNextFarInc                     _i _retry1 4    
 _cheatDeal                    PUSH                              
                               LDWI                              0x72f4
                               STW                               memAddr
-                              LDI                               0
-                              DOKE                              memAddr                         ; hand(0) = 0
+                              LDI                               27
+                              DOKE                              memAddr                         ; hand(0) = 27
 
-                              LDWI                              0x05c2
+                              LDWI                              0x05f8
                               STW                               memAddr
                               LDI                               1
-                              DOKE                              memAddr                         ; cardState(0) = DRAWN
+                              DOKE                              memAddr                         ; cardState(27) = DRAWN
 
                               LDWI                              0x72f6
                               STW                               memAddr
-                              LDI                               1
-                              DOKE                              memAddr                         ; hand(1) = 1
+                              LDI                               40
+                              DOKE                              memAddr                         ; hand(1) = 40
 
-                              LDWI                              0x05c4
+                              LDWI                              0x0612
                               STW                               memAddr
                               LDI                               1
-                              DOKE                              memAddr                         ; cardState(1) = DRAWN
+                              DOKE                              memAddr                         ; cardState(40) = DRAWN
 
                               LDWI                              0x72f8
                               STW                               memAddr
-                              LDI                               2
-                              DOKE                              memAddr                         ; hand(2) = 2
+                              LDI                               26
+                              DOKE                              memAddr                         ; hand(2) = 26
 
-                              LDWI                              0x05c6
+                              LDWI                              0x05f6
                               STW                               memAddr
                               LDI                               1
-                              DOKE                              memAddr                         ; cardState(2) = DRAWN
+                              DOKE                              memAddr                         ; cardState(26) = DRAWN
 
                               LDWI                              0x72fa
                               STW                               0xc0
@@ -668,23 +686,23 @@ _cheatDeal                    PUSH
                               CALL                              giga_vAC
 _page_0x0500                  LDW                               0xc0
                               STW                               memAddr
-                              LDI                               25
-                              DOKE                              memAddr                         ; hand(3) = 25
+                              LDI                               1
+                              DOKE                              memAddr                         ; hand(3) = 1
 
-                              LDWI                              0x05f4
+                              LDWI                              0x05c4
                               STW                               memAddr
                               LDI                               1
-                              DOKE                              memAddr                         ; cardState(25) = DRAWN
+                              DOKE                              memAddr                         ; cardState(1) = DRAWN
 
                               LDWI                              0x72fc
                               STW                               memAddr
-                              LDI                               3
-                              DOKE                              memAddr                         ; hand(4) = 3
+                              LDI                               14
+                              DOKE                              memAddr                         ; hand(4) = 14
 
-                              LDWI                              0x05c8
+                              LDWI                              0x05de
                               STW                               memAddr
                               LDI                               1
-                              DOKE                              memAddr                         ; cardState(3) = DRAWN
+                              DOKE                              memAddr                         ; cardState(14) = DRAWN
 
                               LDI                               0
                               STW                               _selectedCard                   ; selectedCard = 0
@@ -2719,8 +2737,7 @@ _page_0x38a0                  LDW                               0xc0
 
 _endif_0x1a45                 Return                                                            ; return
 
-_flush                        PUSH                              
-                              LDWI                              0x72f4
+_flush                        LDWI                              0x72f4
                               DEEK                              
                               STW                               memIndex0
                               LDI                               0
@@ -2818,7 +2835,7 @@ _page_0x3aa0                  LDW                               0xc0
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _endif_0x1b60 74                ; if (cardSuit(hand(0)) = cardSuit(hand(1))) AND (cardSuit(hand(1)) = cardSuit(hand(2))) AND (cardSuit(hand(2)) = cardSuit(hand(3))) AND (cardSuit(hand(3)) = cardSuit(hand(4)))
+                              JumpFalse                         _endif_0x1b5f 74                ; if (cardSuit(hand(0)) = cardSuit(hand(1))) AND (cardSuit(hand(1)) = cardSuit(hand(2))) AND (cardSuit(hand(2)) = cardSuit(hand(3))) AND (cardSuit(hand(3)) = cardSuit(hand(4)))
 
                               LDI                               0
                               ST                                cursorXY
@@ -2832,9 +2849,358 @@ _page_0x3ba0                  LDW                               0xc0
                               PrintString                       _str_0x71e6
                               NewLine                                                           ; at 0,0 : print "Flush!"
 
-_endif_0x1b60                 Return                                                            ; return
+_endif_0x1b5f                 Return                                                            ; return
 
-_end_0x1b62                   BRA                               _end_0x1b62                     ; END
+_fullHouse                    LDWI                              0x72f4
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               0
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72f6
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               1
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              STW                               0xee
+                              LDWI                              0x72f6
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               1
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72f8
+                              DEEK                              
+                              STW                               0xc0
+                              LDWI                              _page_0x3ca0
+                              CALL                              giga_vAC
+_page_0x3ca0                  LDW                               0xc0
+                              STW                               memIndex0
+                              LDI                               2
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              STW                               0xee
+                              LDWI                              0x72fa
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               3
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72fc
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               4
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              JumpFalse                         _elseif_0x1c40 75               ; if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+
+                              LDI                               0
+                              ST                                cursorXY
+                              LDI                               0
+                              ST                                cursorXY + 1
+                              STW                               0xc0
+                              LDWI                              _page_0x3da0
+                              CALL                              giga_vAC
+_page_0x3da0                  LDW                               0xc0
+                              AtTextCursor                      
+                              PrintString                       _str_0x71d9
+                              NewLine                           
+                              LDWI                              _endif_0x1d1a
+                              CALL                              giga_vAC                        ; at 0,0 : print "Full House!"
+
+_elseif_0x1c40                LDWI                              0x72f4
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               0
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72f6
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               1
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              STW                               0xee
+                              LDWI                              0x72f8
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               2
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              STW                               0xc0
+                              LDWI                              _page_0x3ea0
+                              CALL                              giga_vAC
+_page_0x3ea0                  LDW                               0xc0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72fa
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               3
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              STW                               0xee
+                              LDWI                              0x72fa
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               3
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72fc
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               4
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              JumpFalse                         _endif_0x1d1a 76                ; elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+
+                              LDI                               0
+                              ST                                cursorXY
+                              STW                               0xc0
+                              LDWI                              _page_0x3fa0
+                              CALL                              giga_vAC
+_page_0x3fa0                  LDW                               0xc0
+                              LDI                               0
+                              ST                                cursorXY + 1
+                              AtTextCursor                      
+                              PrintString                       _str_0x71d9
+                              NewLine                                                           ; at 0,0 : print "Full House!"
+
+_endif_0x1d1a                 Return                                                            ; return
+
+_fourOfAKind                  PUSH                              
+                              LDWI                              0x72f4
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               0
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72f6
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               1
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              STW                               0xee
+                              LDWI                              0x72f6
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               1
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              STW                               0xc0
+                              LDWI                              _page_0x40a0
+                              CALL                              giga_vAC
+_page_0x40a0                  LDW                               0xc0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72f8
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               2
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              STW                               0xee
+                              LDWI                              0x72f8
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               2
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72fa
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               3
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              JumpFalse                         _elseif_0x1dfc 77               ; if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3)))
+
+                              LDI                               0
+                              STW                               0xc0
+                              LDWI                              _page_0x41a0
+                              CALL                              giga_vAC
+_page_0x41a0                  LDW                               0xc0
+                              ST                                cursorXY
+                              LDI                               0
+                              ST                                cursorXY + 1
+                              AtTextCursor                      
+                              PrintString                       _str_0x71c8
+                              NewLine                           
+                              LDWI                              _endif_0x1ed6
+                              CALL                              giga_vAC                        ; at 0,0 : print "Four of a Kind!"
+
+_elseif_0x1dfc                LDWI                              0x72f6
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               1
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72f8
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               2
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              STW                               0xee
+                              LDWI                              0x72f8
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               2
+                              STW                               memIndex1
+                              STW                               0xc0
+                              LDWI                              _page_0x42a0
+                              CALL                              giga_vAC
+_page_0x42a0                  LDW                               0xc0
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72fa
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               3
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              STW                               0xee
+                              LDWI                              0x72fa
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               3
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
+                              LDWI                              0x72fc
+                              DEEK                              
+                              STW                               memIndex0
+                              LDI                               4
+                              STW                               memIndex1
+                              LDWI                              0x0696
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              STW                               0xc0
+                              LDWI                              _page_0x43a0
+                              CALL                              giga_vAC
+_page_0x43a0                  LDW                               0xc0
+                              JumpFalse                         _endif_0x1ed6 78                ; elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+
+                              LDI                               0
+                              ST                                cursorXY
+                              LDI                               0
+                              ST                                cursorXY + 1
+                              AtTextCursor                      
+                              PrintString                       _str_0x71c8
+                              NewLine                                                           ; at 0,0 : print "Four of a Kind!"
+
+_endif_0x1ed6                 Return                                                            ; return
+
+_end_0x1ed8                   BRA                               _end_0x1ed8                     ; END
 
 
 
@@ -2844,32 +3210,32 @@ _end_0x1b62                   BRA                               _end_0x1b62     
 ;****************************************************************************************************************************************
 ;****************************************************************************************************************************************
 
-romCheck                      EQU     0x67c6
+romCheck                      EQU     0x67ad
 realTimeStub                  EQU     0x68a0
-convertEqOp                   EQU     0x66a9
-convertGtOp                   EQU     0x66a0
-divide16bit                   EQU     0x6da8
-randMod16bit                  EQU     0x66ec
-scanlineMode                  EQU     0x66b2
-waitVBlank                    EQU     0x67a4
-waitVBlanks                   EQU     0x66d9
-resetVideoFlags               EQU     0x66bc
-initClearFuncs                EQU     0x66c8
+convertEqOp                   EQU     0x65ec
+convertGtOp                   EQU     0x65e3
+divide16bit                   EQU     0x6ca8
+randMod16bit                  EQU     0x66d6
+scanlineMode                  EQU     0x65f5
+waitVBlank                    EQU     0x67a1
+waitVBlanks                   EQU     0x66c3
+resetVideoFlags               EQU     0x66a6
+initClearFuncs                EQU     0x66b2
 clearVertBlinds               EQU     0x6ac9
 clearCursorRow                EQU     0x69cf
 drawHLine                     EQU     0x69a2
-drawVLine                     EQU     0x70a1
-drawRect                      EQU     0x6bc0
+drawVLine                     EQU     0x6fa1
+drawRect                      EQU     0x70a5
 drawRectF                     EQU     0x6aa1
 draw_sprite                   EQU     0x68d7
-drawSprite                    EQU     0x6ca1
-printInit                     EQU     0x67b0
-printText                     EQU     0x6ba7
+drawSprite                    EQU     0x6ba1
+printInit                     EQU     0x66e9
+printText                     EQU     0x67c4
 printDigit                    EQU     0x67dd
-printInt16                    EQU     0x6cae
-printChar                     EQU     0x6ea7
+printInt16                    EQU     0x6bae
+printChar                     EQU     0x6da7
 atTextCursor                  EQU     0x68b2
-newLineScroll                 EQU     0x6fa4
+newLineScroll                 EQU     0x6ea4
 convertEqOpAddr               EQU     0x00c2
 convertNeOpAddr               EQU     0x00c4
 convertLeOpAddr               EQU     0x00c6

@@ -117,7 +117,7 @@ handleInput:
             gosub drawCards
             gosub displayCards
             gosub sortCards
-            gosub flush
+            gosub fourOfAKind
         else
             currentRound = DEAL
             gosub clearHand
@@ -184,20 +184,20 @@ return
 
 ' For testing win conditions only:
 cheatDeal:
-    hand(0) = 0
-    cardState(0) = DRAWN
+    hand(0) = 27
+    cardState(27) = DRAWN
 
-    hand(1) = 1
+    hand(1) = 40
+    cardState(40) = DRAWN
+
+    hand(2) = 26
+    cardState(26) = DRAWN
+
+    hand(3) = 1
     cardState(1) = DRAWN
 
-    hand(2) = 2
-    cardState(2) = DRAWN
-
-    hand(3) = 25
-    cardState(25) = DRAWN
-
-    hand(4) = 3
-    cardState(3) = DRAWN
+    hand(4) = 14
+    cardState(14) = DRAWN
 
     selectedCard = 0
 return
@@ -479,3 +479,18 @@ flush:
     endif
 return
 
+fullHouse:
+    if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+        at 0,0 : print "Full House!"
+    elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+        at 0,0 : print "Full House!"
+    endif
+return
+
+fourOfAKind:
+    if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3)))
+        at 0,0 : print "Four of a Kind!"
+    elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+        at 0,0 : print "Four of a Kind!"
+    endif
+return
