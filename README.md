@@ -5,7 +5,7 @@ A collection of software and tools I developed for the [Gigatron TTL microcomput
 ### Video Poker
 **WORK IN PROGRESS**
 
-A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gigatron.io/viewtopic.php?f=4&t=232).
+A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gigatron.io/viewtopic.php?f=4&t=232). Requires Gigatron ROMv3 or higher.
 
 ![Screenshot](screenshots/videopoker-alpha-01.png?raw=true)
 
@@ -23,8 +23,8 @@ A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gig
   - [X] Three of a Kind
   - [X] Straight
   - [X] Flush
-  - [ ] Full House
-  - [ ] Four of a Kind
+  - [X] Full House
+  - [X] Four of a Kind
   - [ ] Straight Flush
   - [ ] Royal Flush
 
