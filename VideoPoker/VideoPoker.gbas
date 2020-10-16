@@ -34,6 +34,20 @@ const DEAL = 1
 const DRAW = 2
 
 ' ------------------
+'   Winning Hands
+' ------------------
+const NONE = 0
+const JACKSORBETTER = 1
+const TWOPAIR = 2
+const THREEOFAKIND = 3
+const STRAIGHT = 4
+const FLUSH = 5
+const FULLHOUSE = 6
+const FOUROFAKIND = 7
+const STRAIGHTFLUSH = 9
+const ROYALFLUSH = 10
+
+' ------------------
 '   Coordinates
 ' ------------------
 const holdY = 20
@@ -65,6 +79,9 @@ tempCard = 0
 tempValue1 = 0
 tempValue2 = 0
 tempValue3 = 0
+straightFlag = 0
+flushFlag = 0
+winType = NONE
 holdX = 0
 inputDevice = 255
 
@@ -72,7 +89,7 @@ inputDevice = 255
 '   Game Setup
 ' ------------------
 gosub initCards
-gosub cheatDeal
+gosub dealCards
 
 gosub displayCards
 gosub selectCard
@@ -116,8 +133,7 @@ handleInput:
             gosub selectCard
             gosub drawCards
             gosub displayCards
-            gosub sortCards
-            gosub fourOfAKind
+            gosub checkHand
         else
             currentRound = DEAL
             gosub clearHand
@@ -159,10 +175,11 @@ clearHand:
         cardState(i) = INDECK
     next i
 
-    set FG_COLOUR, 31
+    set FG_COLOUR, 32
     set BG_COLOUR, 32
     selectedCard = 0
     at 7,holdY : print "                         "
+    at 0,0 : print "                         "
 return
 
 ' ------------------
@@ -184,20 +201,20 @@ return
 
 ' For testing win conditions only:
 cheatDeal:
-    hand(0) = 27
-    cardState(27) = DRAWN
+    hand(0) = 4
+    cardState(4) = DRAWN
 
-    hand(1) = 40
-    cardState(40) = DRAWN
+    hand(1) = 2
+    cardState(2) = DRAWN
 
-    hand(2) = 26
-    cardState(26) = DRAWN
+    hand(2) = 31
+    cardState(31) = DRAWN
 
-    hand(3) = 1
-    cardState(1) = DRAWN
+    hand(3) = 18
+    cardState(18) = DRAWN
 
-    hand(4) = 14
-    cardState(14) = DRAWN
+    hand(4) = 5
+    cardState(5) = DRAWN
 
     selectedCard = 0
 return
@@ -432,6 +449,86 @@ sortCards:
 return
 
 ' ------------------
+'   Check Hand
+' ------------------
+checkHand:
+' reset flags
+    straightFlag = 0
+    flushFlag = 0
+    winType = NONE
+    set FG_COLOUR, 31
+    set BG_COLOUR, 32
+
+' sort cards least to greatest
+    gosub sortCards
+
+' check straight and flush flags first
+    gosub flush
+    gosub straight
+
+' Royal Flush
+    gosub royalFlush
+    if winType &= ROYALFLUSH
+        at 0,0 : print "Royal Flush!"
+        return
+    endif
+
+' Straight Flush
+    gosub straightFlush
+    if winType &= STRAIGHTFLUSH
+        at 0,0 : print "Straight Flush!"
+        return
+    endif
+
+' Four of a Kind
+    gosub fourOfAKind
+    if winType &= FOUROFAKIND
+        at 0,0 : print "Four of a Kind!"
+        return
+    endif
+
+' Full House
+    gosub fullHouse
+    if winType &= FULLHOUSE
+        at 0,0 : print "Full House!"
+        return
+    endif
+
+' Flush
+    if flushFlag &= 1
+        at 0,0 : print "Flush!"
+        return
+    endif
+
+' Straight
+    if straightFlag &= 1
+        at 0,0 : print "Straight!"
+        return
+    endif
+
+' Three of a Kind
+    gosub threeOfAKind
+    if winType &= THREEOFAKIND
+        at 0,0 : print "Three of a Kind!"
+        return
+    endif
+
+' Two Pair
+    gosub twoPair
+    if winType &= TWOPAIR
+        at 0,0 : print "Two Pair!"
+        return
+    endif
+
+' Jacks or Better
+    gosub jacksOrBetter
+    if winType &= JACKSORBETTER
+        at 0,0 : print "Jacks or Better!"
+        return
+    endif
+return
+
+' ------------------
 '   Win Conditions
 ' ------------------
 jacksOrBetter:
@@ -439,18 +536,18 @@ jacksOrBetter:
         tempValue1 = hand(i)
         tempValue2 = hand(i+1)
         if (cardValue(tempValue1) = cardValue(tempValue2)) AND (cardValue(tempValue2) > 10)
-            at 0,0 : print "Jacks or Better!"
+            winType = JACKSORBETTER
         endif
     next i
 return
 
 twoPair:
     if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3))) 
-        at 0,0 : print "Two Pair!"
+        winType = TWOPAIR
     elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4))) 
-        at 0,0 : print "Two Pair!"
+        winType = TWOPAIR
     elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(3)) = cardValue(hand(4))) 
-        at 0,0 : print "Two Pair!"
+        winType = TWOPAIR
     endif
 return
 
@@ -460,37 +557,49 @@ threeOfAKind:
         tempValue2 = hand(i+1)
         tempValue3 = hand(i+2)
         if (cardValue(tempValue1) = cardValue(tempValue2)) AND (cardValue(tempValue2) = cardValue(tempValue3))
-            at 0,0 : print "Three of a Kind!"
+            winType = THREEOFAKIND
         endif
     next i
 return
 
 straight:
     if (cardValue(hand(4)) = cardValue(hand(3))+1) AND (cardValue(hand(3))+1 = cardValue(hand(2))+2) AND (cardValue(hand(2))+2 = cardValue(hand(1))+3) AND (cardValue(hand(1))+3 = cardValue(hand(0))+4)
-        at 0,0 : print "Straight!"
+        straightFlag = 1
     elseif (cardValue(hand(4)) = ACE) AND (cardValue(hand(0)) = 2) AND (cardValue(hand(1)) = 3) AND (cardValue(hand(2)) = 4) AND (cardValue(hand(3)) = 5)
-        at 0,0 : print "Straight!"
+        straightFlag = 1
     endif
 return
 
 flush:
     if (cardSuit(hand(0)) = cardSuit(hand(1))) AND (cardSuit(hand(1)) = cardSuit(hand(2))) AND (cardSuit(hand(2)) = cardSuit(hand(3))) AND (cardSuit(hand(3)) = cardSuit(hand(4)))
-        at 0,0 : print "Flush!"
+        flushFlag = 1
     endif
 return
 
 fullHouse:
     if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4)))
-        at 0,0 : print "Full House!"
+        winType = FULLHOUSE
     elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
-        at 0,0 : print "Full House!"
+        winType = FULLHOUSE
     endif
 return
 
 fourOfAKind:
     if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3)))
-        at 0,0 : print "Four of a Kind!"
+        winType = FOUROFAKIND
     elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
-        at 0,0 : print "Four of a Kind!"
+        winType = FOUROFAKIND
+    endif
+return
+
+straightFlush:
+    if (straightFlag = 1) AND (flushFlag = 1)
+        winType = STRAIGHTFLUSH
+    endif
+return
+
+royalFlush:
+    if (flushFlag = 1) AND (cardValue(hand(0)) = 10) AND (cardValue(hand(1)) = JACK) AND (cardValue(hand(2)) = QUEEN) AND (cardValue(hand(3)) = KING) AND (cardValue(hand(4)) = ACE)
+        winType = ROYALFLUSH
     endif
 return
