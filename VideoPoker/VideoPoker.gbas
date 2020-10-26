@@ -50,7 +50,13 @@ const ROYALFLUSH = 10
 ' ------------------
 '   Coordinates
 ' ------------------
-const holdY = 20
+const cardY = 30
+const cardY2 = cardY + 45
+const holdY = cardY - 10
+const cardBorderY = cardY - 1
+const cardBorderY2 = cardBorderY + 47
+const cardValueY = cardY + 2
+const cardSuitY = cardY + 17
 
 ' ------------------
 '   Sprites
@@ -243,24 +249,24 @@ return
 ' ------------------
 selectCard:
     set FG_COLOUR, 0
-    rect 3, 29, 32, 76
-    rect 34, 29, 63, 76
-    rect 65, 29, 94, 76
-    rect 96, 29, 125, 76
-    rect 127, 29, 156, 76
+    rect 3, cardBorderY, 32, cardBorderY2
+    rect 34, cardBorderY, 63, cardBorderY2
+    rect 65, cardBorderY, 94, cardBorderY2
+    rect 96, cardBorderY, 125, cardBorderY2
+    rect 127, cardBorderY, 156, cardBorderY2
 
     set FG_COLOUR, 3
 
     if selectedCard &= 0
-        rect 3, 29, 32, 76
+        rect 3, cardBorderY, 32, cardBorderY2
     elseif selectedCard &= 1
-        rect 34, 29, 63, 76
+        rect 34, cardBorderY, 63, cardBorderY2
     elseif selectedCard &= 2
-        rect 65, 29, 94, 76
+        rect 65, cardBorderY, 94, cardBorderY2
     elseif selectedCard &= 3
-        rect 96, 29, 125, 76
+        rect 96, cardBorderY, 125, cardBorderY2
     elseif selectedCard &= 4
-        rect 127, 29, 156, 76
+        rect 127, cardBorderY, 156, cardBorderY2
     endif
 return
 
@@ -303,131 +309,131 @@ displayCards:
 ' Card 1
     if cardState(hand(0)) &= DRAWN
         set FG_COLOUR, 0
-        rectf 3, 29, 32, 76
+        rectf 3, cardBorderY, 32, cardBorderY2
         WAIT 10
         set FG_COLOUR, 63
-        rectf 4, 30, 31, 75
+        rectf 4, cardY, 31, cardY2
         if (cardSuit(hand(0)) = HEARTS) OR (cardSuit(hand(0)) = DIAMONDS)
             set FG_COLOUR, 3
         else
             set FG_COLOUR, 0
         endif
         if cardValue(hand(0)) &= 14
-            at 7,32 : print "A"
+            at 7,cardValueY : print "A"
         elseif cardValue(hand(0)) &= 13
-            at 7,32 : print "K"
+            at 7,cardValueY : print "K"
         elseif cardValue(hand(0)) &= 12
-            at 7,32 : print "Q"
+            at 7,cardValueY : print "Q"
         elseif cardValue(hand(0)) &= 11
-            at 7,32 : print "J"
+            at 7,cardValueY : print "J"
         else
-            at 7,32 : print cardValue(hand(0))
+            at 7,cardValueY : print cardValue(hand(0))
         endif
-        sprite noFlip, cardSuit(hand(0)), 11, 47
+        sprite noFlip, cardSuit(hand(0)), 11, cardSuitY
     endif
 
 ' Card 2
     if cardState(hand(1)) &= DRAWN
         set FG_COLOUR, 0
-        rectf 34, 29, 63, 76
+        rectf 34, cardBorderY, 63, cardBorderY2
         WAIT 10
         set FG_COLOUR, 63
-        rectf 35, 30, 62, 75
+        rectf 35, cardY, 62, cardY2
         if (cardSuit(hand(1)) = HEARTS) OR (cardSuit(hand(1)) = DIAMONDS)
             set FG_COLOUR, 3
         else
             set FG_COLOUR, 0
         endif
         if cardValue(hand(1)) &= 14
-            at 38,32 : print "A"
+            at 38,cardValueY : print "A"
         elseif cardValue(hand(1)) &= 13
-            at 38,32 : print "K"
+            at 38,cardValueY : print "K"
         elseif cardValue(hand(1)) &= 12
-            at 38,32 : print "Q"
+            at 38,cardValueY : print "Q"
         elseif cardValue(hand(1)) &= 11
-            at 38,32 : print "J"
+            at 38,cardValueY : print "J"
         else
-            at 38,32 : print cardValue(hand(1))
+            at 38,cardValueY : print cardValue(hand(1))
         endif
-        sprite noFlip, cardSuit(hand(1)), 42, 47
+        sprite noFlip, cardSuit(hand(1)), 42, cardSuitY
     endif
 
 ' Card 3
     if cardState(hand(2)) &= DRAWN
         set FG_COLOUR, 0
-        rectf 65, 29, 94, 76
+        rectf 65, cardBorderY, 94, cardBorderY2
         WAIT 10
         set FG_COLOUR, 63
-        rectf 66, 30, 93, 75
+        rectf 66, cardY, 93, cardY2
         if (cardSuit(hand(2)) = HEARTS) OR (cardSuit(hand(2)) = DIAMONDS)
             set FG_COLOUR, 3
         else
             set FG_COLOUR, 0
         endif
         if cardValue(hand(2)) &= 14
-            at 69,32 : print "A"
+            at 69,cardValueY : print "A"
         elseif cardValue(hand(2)) &= 13
-            at 69,32 : print "K"
+            at 69,cardValueY : print "K"
         elseif cardValue(hand(2)) &= 12
-            at 69,32 : print "Q"
+            at 69,cardValueY : print "Q"
         elseif cardValue(hand(2)) &= 11
-            at 69,32 : print "J"
+            at 69,cardValueY : print "J"
         else
-            at 69,32 : print cardValue(hand(2))
+            at 69,cardValueY : print cardValue(hand(2))
         endif
-        sprite noFlip, cardSuit(hand(2)), 73, 47
+        sprite noFlip, cardSuit(hand(2)), 73, cardSuitY
     endif
 
 ' Card 4
     if cardState(hand(3)) &= DRAWN
         set FG_COLOUR, 0
-        rectf 96, 29, 125, 76
+        rectf 96, cardBorderY, 125, cardBorderY2
         WAIT 10
         set FG_COLOUR, 63
-        rectf 97, 30, 124, 75
+        rectf 97, cardY, 124, cardY2
         if (cardSuit(hand(3)) = HEARTS) OR (cardSuit(hand(3)) = DIAMONDS)
             set FG_COLOUR, 3
         else
             set FG_COLOUR, 0
         endif
         if cardValue(hand(3)) &= 14
-            at 100,32 : print "A"
+            at 100,cardValueY : print "A"
         elseif cardValue(hand(3)) &= 13
-            at 100,32 : print "K"
+            at 100,cardValueY : print "K"
         elseif cardValue(hand(3)) &= 12
-            at 100,32 : print "Q"
+            at 100,cardValueY : print "Q"
         elseif cardValue(hand(3)) &= 11
-            at 100,32 : print "J"
+            at 100,cardValueY : print "J"
         else
-            at 100,32 : print cardValue(hand(3))
+            at 100,cardValueY : print cardValue(hand(3))
         endif
-        sprite noFlip, cardSuit(hand(3)), 104, 47
+        sprite noFlip, cardSuit(hand(3)), 104, cardSuitY
     endif
 
 ' Card 5
     if cardState(hand(4)) &= DRAWN
         set FG_COLOUR, 0
-        rectf 127, 29, 156, 76
+        rectf 127, cardBorderY, 156, cardBorderY2
         WAIT 10
         set FG_COLOUR, 63
-        rectf 128, 30, 155, 75
+        rectf 128, cardY, 155, cardY2
         if (cardSuit(hand(4)) = HEARTS) OR (cardSuit(hand(4)) = DIAMONDS)
             set FG_COLOUR, 3
         else
             set FG_COLOUR, 0
         endif
         if cardValue(hand(4)) &= 14
-            at 131,32 : print "A"
+            at 131,cardValueY : print "A"
         elseif cardValue(hand(4)) &= 13
-            at 131,32 : print "K"
+            at 131,cardValueY : print "K"
         elseif cardValue(hand(4)) &= 12
-            at 131,32 : print "Q"
+            at 131,cardValueY : print "Q"
         elseif cardValue(hand(4)) &= 11
-            at 131,32 : print "J"
+            at 131,cardValueY : print "J"
         else
-            at 131,32 : print cardValue(hand(4))
+            at 131,cardValueY : print cardValue(hand(4))
         endif
-        sprite noFlip, cardSuit(hand(4)), 135, 47
+        sprite noFlip, cardSuit(hand(4)), 135, cardSuitY
     endif
 return
 

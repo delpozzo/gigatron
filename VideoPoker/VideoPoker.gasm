@@ -822,7 +822,7 @@ _selectCard                   PUSH
                               STW                               drawRect_x2
                               LDI                               76
                               STW                               drawRect_y2
-                              DrawRect                                                          ; rect 3, 29, 32, 76
+                              DrawRect                                                          ; rect 3, cardBorderY, 32, cardBorderY2
 
                               LDI                               34
                               STW                               drawRect_x1
@@ -832,7 +832,7 @@ _selectCard                   PUSH
                               STW                               drawRect_x2
                               LDI                               76
                               STW                               drawRect_y2
-                              DrawRect                                                          ; rect 34, 29, 63, 76
+                              DrawRect                                                          ; rect 34, cardBorderY, 63, cardBorderY2
 
                               LDI                               65
                               STW                               drawRect_x1
@@ -846,7 +846,7 @@ _selectCard                   PUSH
                               LDWI                              _page_0x09a0
                               CALL                              giga_vAC
 _page_0x09a0                  LDW                               0xc0
-                              DrawRect                                                          ; rect 65, 29, 94, 76
+                              DrawRect                                                          ; rect 65, cardBorderY, 94, cardBorderY2
 
                               LDI                               96
                               STW                               drawRect_x1
@@ -856,7 +856,7 @@ _page_0x09a0                  LDW                               0xc0
                               STW                               drawRect_x2
                               LDI                               76
                               STW                               drawRect_y2
-                              DrawRect                                                          ; rect 96, 29, 125, 76
+                              DrawRect                                                          ; rect 96, cardBorderY, 125, cardBorderY2
 
                               LDI                               127
                               STW                               drawRect_x1
@@ -866,7 +866,7 @@ _page_0x09a0                  LDW                               0xc0
                               STW                               drawRect_x2
                               LDI                               76
                               STW                               drawRect_y2
-                              DrawRect                                                          ; rect 127, 29, 156, 76
+                              DrawRect                                                          ; rect 127, cardBorderY, 156, cardBorderY2
 
                               LDI                               3
                               ST                                fgbgColour + 1                  ; set FG_COLOUR, 3
@@ -889,7 +889,7 @@ _page_0x09a0                  LDW                               0xc0
                               CALL                              giga_vAC
 _page_0x0aa0                  LDW                               0xc0
                               LDWI                              _endif_0x07ac
-                              CALL                              giga_vAC                        ; rect 3, 29, 32, 76
+                              CALL                              giga_vAC                        ; rect 3, cardBorderY, 32, cardBorderY2
 
 _elseif_0x0709                LDW                               _selectedCard
                               XORI                              1
@@ -905,7 +905,7 @@ _elseif_0x0709                LDW                               _selectedCard
                               STW                               drawRect_y2
                               DrawRect                          
                               LDWI                              _endif_0x07ac
-                              CALL                              giga_vAC                        ; rect 34, 29, 63, 76
+                              CALL                              giga_vAC                        ; rect 34, cardBorderY, 63, cardBorderY2
 
 _elseif_0x0733                LDW                               _selectedCard
                               XORI                              2
@@ -921,7 +921,7 @@ _elseif_0x0733                LDW                               _selectedCard
                               STW                               drawRect_y2
                               DrawRect                          
                               LDWI                              _endif_0x07ac
-                              CALL                              giga_vAC                        ; rect 65, 29, 94, 76
+                              CALL                              giga_vAC                        ; rect 65, cardBorderY, 94, cardBorderY2
 
 _elseif_0x075d                LDW                               _selectedCard
                               XORI                              3
@@ -941,7 +941,7 @@ _page_0x0ba0                  LDW                               0xc0
                               STW                               drawRect_y2
                               DrawRect                          
                               LDWI                              _endif_0x07ac
-                              CALL                              giga_vAC                        ; rect 96, 29, 125, 76
+                              CALL                              giga_vAC                        ; rect 96, cardBorderY, 125, cardBorderY2
 
 _elseif_0x0787                LDW                               _selectedCard
                               XORI                              4
@@ -955,7 +955,7 @@ _elseif_0x0787                LDW                               _selectedCard
                               STW                               drawRect_x2
                               LDI                               76
                               STW                               drawRect_y2
-                              DrawRect                                                          ; rect 127, 29, 156, 76
+                              DrawRect                                                          ; rect 127, cardBorderY, 156, cardBorderY2
 
 _endif_0x07ac                 Return                                                            ; return
 
@@ -1106,7 +1106,7 @@ _page_0x0fa0                  LDW                               0xc0
                               STW                               drawRectF_x2
                               LDI                               76
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 3, 29, 32, 76
+                              DrawRectF                                                         ; rectf 3, cardBorderY, 32, cardBorderY2
 
                               LDI                               10
                               STW                               waitVBlankNum
@@ -1123,7 +1123,7 @@ _page_0x0fa0                  LDW                               0xc0
                               STW                               drawRectF_x2
                               LDI                               75
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 4, 30, 31, 75
+                              DrawRectF                                                         ; rectf 4, cardY, 31, cardY2
 
                               LDWI                              0x72f4
                               DEEK                              
@@ -1187,7 +1187,7 @@ _page_0x11a0                  LDW                               0xc0
                               PrintString                       _str_0x7ea2
                               NewLine                           
                               LDWI                              _endif_0x0b00
-                              CALL                              giga_vAC                        ; at 7,32 : print "A"
+                              CALL                              giga_vAC                        ; at 7,cardValueY : print "A"
 
 _elseif_0x09f2                LDWI                              0x72f4
                               DEEK                              
@@ -1213,7 +1213,7 @@ _elseif_0x09f2                LDWI                              0x72f4
                               LDWI                              _page_0x12a0
                               CALL                              giga_vAC
 _page_0x12a0                  LDW                               0xc0
-                              CALL                              giga_vAC                        ; at 7,32 : print "K"
+                              CALL                              giga_vAC                        ; at 7,cardValueY : print "K"
 
 _elseif_0x0a3b                LDWI                              0x72f4
                               DEEK                              
@@ -1235,7 +1235,7 @@ _elseif_0x0a3b                LDWI                              0x72f4
                               PrintString                       _str_0x7ca2
                               NewLine                           
                               LDWI                              _endif_0x0b00
-                              CALL                              giga_vAC                        ; at 7,32 : print "Q"
+                              CALL                              giga_vAC                        ; at 7,cardValueY : print "Q"
 
 _elseif_0x0a84                LDWI                              0x72f4
                               DEEK                              
@@ -1261,7 +1261,7 @@ _page_0x13a0                  LDW                               0xc0
                               PrintString                       _str_0x7ba2
                               NewLine                           
                               LDWI                              _endif_0x0b00
-                              CALL                              giga_vAC                        ; at 7,32 : print "J"
+                              CALL                              giga_vAC                        ; at 7,cardValueY : print "J"
 
 _else_0x0acd                  LDI                               7
                               ST                                cursorXY
@@ -1278,7 +1278,7 @@ _else_0x0acd                  LDI                               7
                               ADDW                              memIndex0
                               DEEK                              
                               PrintAcInt16                      
-                              NewLine                                                           ; at 7,32 : print cardValue(hand(0))
+                              NewLine                                                           ; at 7,cardValueY : print cardValue(hand(0))
 
                               STW                               0xc0
                               LDWI                              _page_0x14a0
@@ -1299,7 +1299,7 @@ _endif_0x0b00                 LDWI                              0x72f4
                               LDI                               47
                               ADDI                              8
                               ST                                spriteXY + 1
-                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(0)), 11, 47
+                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(0)), 11, cardSuitY
 
 _endif_0x0b2b                 LDWI                              0x72f6
                               DEEK                              
@@ -1328,7 +1328,7 @@ _endif_0x0b2b                 LDWI                              0x72f6
                               LDWI                              _page_0x15a0
                               CALL                              giga_vAC
 _page_0x15a0                  LDW                               0xc0
-                              DrawRectF                                                         ; rectf 34, 29, 63, 76
+                              DrawRectF                                                         ; rectf 34, cardBorderY, 63, cardBorderY2
 
                               LDI                               10
                               STW                               waitVBlankNum
@@ -1345,7 +1345,7 @@ _page_0x15a0                  LDW                               0xc0
                               STW                               drawRectF_x2
                               LDI                               75
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 35, 30, 62, 75
+                              DrawRectF                                                         ; rectf 35, cardY, 62, cardY2
 
                               LDWI                              0x72f6
                               DEEK                              
@@ -1405,7 +1405,7 @@ _endif_0x0beb                 LDWI                              0x72f6
                               PrintString                       _str_0x7ea2
                               NewLine                           
                               LDWI                              _endif_0x0d42
-                              CALL                              giga_vAC                        ; at 38,32 : print "A"
+                              CALL                              giga_vAC                        ; at 38,cardValueY : print "A"
 
                               STW                               0xc0
                               LDWI                              _page_0x17a0
@@ -1431,7 +1431,7 @@ _elseif_0x0c34                LDWI                              0x72f6
                               PrintString                       _str_0x7da2
                               NewLine                           
                               LDWI                              _endif_0x0d42
-                              CALL                              giga_vAC                        ; at 38,32 : print "K"
+                              CALL                              giga_vAC                        ; at 38,cardValueY : print "K"
 
 _elseif_0x0c7d                LDWI                              0x72f6
                               DEEK                              
@@ -1457,7 +1457,7 @@ _page_0x18a0                  LDW                               0xc0
                               PrintString                       _str_0x7ca2
                               NewLine                           
                               LDWI                              _endif_0x0d42
-                              CALL                              giga_vAC                        ; at 38,32 : print "Q"
+                              CALL                              giga_vAC                        ; at 38,cardValueY : print "Q"
 
 _elseif_0x0cc6                LDWI                              0x72f6
                               DEEK                              
@@ -1483,7 +1483,7 @@ _page_0x19a0                  LDW                               0xc0
                               PrintString                       _str_0x7ba2
                               NewLine                           
                               LDWI                              _endif_0x0d42
-                              CALL                              giga_vAC                        ; at 38,32 : print "J"
+                              CALL                              giga_vAC                        ; at 38,cardValueY : print "J"
 
 _else_0x0d0f                  LDI                               38
                               ST                                cursorXY
@@ -1500,7 +1500,7 @@ _else_0x0d0f                  LDI                               38
                               ADDW                              memIndex0
                               DEEK                              
                               PrintAcInt16                      
-                              NewLine                                                           ; at 38,32 : print cardValue(hand(1))
+                              NewLine                                                           ; at 38,cardValueY : print cardValue(hand(1))
 
 _endif_0x0d42                 LDWI                              0x72f6
                               DEEK                              
@@ -1521,7 +1521,7 @@ _page_0x1aa0                  LDW                               0xc0
                               LDI                               47
                               ADDI                              8
                               ST                                spriteXY + 1
-                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(1)), 42, 47
+                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(1)), 42, cardSuitY
 
 _endif_0x0d6d                 LDWI                              0x72f8
                               DEEK                              
@@ -1546,7 +1546,7 @@ _endif_0x0d6d                 LDWI                              0x72f8
                               STW                               drawRectF_x2
                               LDI                               76
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 65, 29, 94, 76
+                              DrawRectF                                                         ; rectf 65, cardBorderY, 94, cardBorderY2
 
                               LDI                               10
                               STW                               waitVBlankNum
@@ -1567,7 +1567,7 @@ _page_0x1ba0                  LDW                               0xc0
                               STW                               drawRectF_x2
                               LDI                               75
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 66, 30, 93, 75
+                              DrawRectF                                                         ; rectf 66, cardY, 93, cardY2
 
                               LDWI                              0x72f8
                               DEEK                              
@@ -1627,7 +1627,7 @@ _endif_0x0e2d                 LDWI                              0x72f8
                               PrintString                       _str_0x7ea2
                               NewLine                           
                               LDWI                              _endif_0x0f84
-                              CALL                              giga_vAC                        ; at 69,32 : print "A"
+                              CALL                              giga_vAC                        ; at 69,cardValueY : print "A"
 
 _elseif_0x0e76                LDWI                              0x72f8
                               DEEK                              
@@ -1653,7 +1653,7 @@ _page_0x1da0                  LDW                               0xc0
                               PrintString                       _str_0x7da2
                               NewLine                           
                               LDWI                              _endif_0x0f84
-                              CALL                              giga_vAC                        ; at 69,32 : print "K"
+                              CALL                              giga_vAC                        ; at 69,cardValueY : print "K"
 
 _elseif_0x0ebf                LDWI                              0x72f8
                               DEEK                              
@@ -1679,7 +1679,7 @@ _page_0x1ea0                  LDW                               0xc0
                               PrintString                       _str_0x7ca2
                               NewLine                           
                               LDWI                              _endif_0x0f84
-                              CALL                              giga_vAC                        ; at 69,32 : print "Q"
+                              CALL                              giga_vAC                        ; at 69,cardValueY : print "Q"
 
 _elseif_0x0f08                LDWI                              0x72f8
                               DEEK                              
@@ -1701,7 +1701,7 @@ _elseif_0x0f08                LDWI                              0x72f8
                               PrintString                       _str_0x7ba2
                               NewLine                           
                               LDWI                              _endif_0x0f84
-                              CALL                              giga_vAC                        ; at 69,32 : print "J"
+                              CALL                              giga_vAC                        ; at 69,cardValueY : print "J"
 
 _else_0x0f51                  LDI                               69
                               ST                                cursorXY
@@ -1722,7 +1722,7 @@ _page_0x1fa0                  LDW                               0xc0
                               ADDW                              memIndex0
                               DEEK                              
                               PrintAcInt16                      
-                              NewLine                                                           ; at 69,32 : print cardValue(hand(2))
+                              NewLine                                                           ; at 69,cardValueY : print cardValue(hand(2))
 
 _endif_0x0f84                 LDWI                              0x72f8
                               DEEK                              
@@ -1739,7 +1739,7 @@ _endif_0x0f84                 LDWI                              0x72f8
                               LDI                               47
                               ADDI                              8
                               ST                                spriteXY + 1
-                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(2)), 73, 47
+                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(2)), 73, cardSuitY
 
 _endif_0x0faf                 LDWI                              0x72fa
                               DEEK                              
@@ -1768,7 +1768,7 @@ _page_0x20a0                  LDW                               0xc0
                               STW                               drawRectF_x2
                               LDI                               76
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 96, 29, 125, 76
+                              DrawRectF                                                         ; rectf 96, cardBorderY, 125, cardBorderY2
 
                               LDI                               10
                               STW                               waitVBlankNum
@@ -1785,7 +1785,7 @@ _page_0x20a0                  LDW                               0xc0
                               STW                               drawRectF_x2
                               LDI                               75
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 97, 30, 124, 75
+                              DrawRectF                                                         ; rectf 97, cardY, 124, cardY2
 
                               LDWI                              0x72fa
                               DEEK                              
@@ -1849,7 +1849,7 @@ _page_0x22a0                  LDW                               0xc0
                               PrintString                       _str_0x7ea2
                               NewLine                           
                               LDWI                              _endif_0x11c6
-                              CALL                              giga_vAC                        ; at 100,32 : print "A"
+                              CALL                              giga_vAC                        ; at 100,cardValueY : print "A"
 
 _elseif_0x10b8                LDWI                              0x72fa
                               DEEK                              
@@ -1875,7 +1875,7 @@ _page_0x23a0                  LDW                               0xc0
                               PrintString                       _str_0x7da2
                               NewLine                           
                               LDWI                              _endif_0x11c6
-                              CALL                              giga_vAC                        ; at 100,32 : print "K"
+                              CALL                              giga_vAC                        ; at 100,cardValueY : print "K"
 
 _elseif_0x1101                LDWI                              0x72fa
                               DEEK                              
@@ -1897,7 +1897,7 @@ _elseif_0x1101                LDWI                              0x72fa
                               PrintString                       _str_0x7ca2
                               NewLine                           
                               LDWI                              _endif_0x11c6
-                              CALL                              giga_vAC                        ; at 100,32 : print "Q"
+                              CALL                              giga_vAC                        ; at 100,cardValueY : print "Q"
 
 _elseif_0x114a                LDWI                              0x72fa
                               DEEK                              
@@ -1923,7 +1923,7 @@ _page_0x24a0                  LDW                               0xc0
                               PrintString                       _str_0x7ba2
                               NewLine                           
                               LDWI                              _endif_0x11c6
-                              CALL                              giga_vAC                        ; at 100,32 : print "J"
+                              CALL                              giga_vAC                        ; at 100,cardValueY : print "J"
 
 _else_0x1193                  LDI                               100
                               ST                                cursorXY
@@ -1944,7 +1944,7 @@ _page_0x25a0                  LDW                               0xc0
                               ADDW                              memIndex0
                               DEEK                              
                               PrintAcInt16                      
-                              NewLine                                                           ; at 100,32 : print cardValue(hand(3))
+                              NewLine                                                           ; at 100,cardValueY : print cardValue(hand(3))
 
 _endif_0x11c6                 LDWI                              0x72fa
                               DEEK                              
@@ -1961,7 +1961,7 @@ _endif_0x11c6                 LDWI                              0x72fa
                               LDI                               47
                               ADDI                              8
                               ST                                spriteXY + 1
-                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(3)), 104, 47
+                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(3)), 104, cardSuitY
 
 _endif_0x11f1                 LDWI                              0x72fc
                               DEEK                              
@@ -1990,7 +1990,7 @@ _page_0x26a0                  LDW                               0xc0
                               STW                               drawRectF_x2
                               LDI                               76
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 127, 29, 156, 76
+                              DrawRectF                                                         ; rectf 127, cardBorderY, 156, cardBorderY2
 
                               LDI                               10
                               STW                               waitVBlankNum
@@ -2007,7 +2007,7 @@ _page_0x26a0                  LDW                               0xc0
                               STW                               drawRectF_x2
                               LDI                               75
                               STW                               drawRectF_y2
-                              DrawRectF                                                         ; rectf 128, 30, 155, 75
+                              DrawRectF                                                         ; rectf 128, cardY, 155, cardY2
 
                               LDWI                              0x72fc
                               DEEK                              
@@ -2071,7 +2071,7 @@ _endif_0x12b1                 LDWI                              0x72fc
 _page_0x28a0                  LDW                               0xc0
                               NewLine                           
                               LDWI                              _endif_0x1408
-                              CALL                              giga_vAC                        ; at 131,32 : print "A"
+                              CALL                              giga_vAC                        ; at 131,cardValueY : print "A"
 
 _elseif_0x12fa                LDWI                              0x72fc
                               DEEK                              
@@ -2093,7 +2093,7 @@ _elseif_0x12fa                LDWI                              0x72fc
                               PrintString                       _str_0x7da2
                               NewLine                           
                               LDWI                              _endif_0x1408
-                              CALL                              giga_vAC                        ; at 131,32 : print "K"
+                              CALL                              giga_vAC                        ; at 131,cardValueY : print "K"
 
 _elseif_0x1343                LDWI                              0x72fc
                               DEEK                              
@@ -2119,7 +2119,7 @@ _page_0x29a0                  LDW                               0xc0
                               PrintString                       _str_0x7ca2
                               NewLine                           
                               LDWI                              _endif_0x1408
-                              CALL                              giga_vAC                        ; at 131,32 : print "Q"
+                              CALL                              giga_vAC                        ; at 131,cardValueY : print "Q"
 
 _elseif_0x138c                LDWI                              0x72fc
                               DEEK                              
@@ -2145,7 +2145,7 @@ _page_0x2aa0                  LDW                               0xc0
                               PrintString                       _str_0x7ba2
                               NewLine                           
                               LDWI                              _endif_0x1408
-                              CALL                              giga_vAC                        ; at 131,32 : print "J"
+                              CALL                              giga_vAC                        ; at 131,cardValueY : print "J"
 
 _else_0x13d5                  LDI                               131
                               ST                                cursorXY
@@ -2162,7 +2162,7 @@ _else_0x13d5                  LDI                               131
                               ADDW                              memIndex0
                               DEEK                              
                               PrintAcInt16                      
-                              NewLine                                                           ; at 131,32 : print cardValue(hand(4))
+                              NewLine                                                           ; at 131,cardValueY : print cardValue(hand(4))
 
 _endif_0x1408                 LDWI                              0x72fc
                               DEEK                              
@@ -2183,7 +2183,7 @@ _page_0x2ba0                  LDW                               0xc0
                               LDI                               47
                               ADDI                              8
                               ST                                spriteXY + 1
-                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(4)), 135, 47
+                              DrawSprite                                                        ; sprite noFlip, cardSuit(hand(4)), 135, cardSuitY
 
 _endif_0x1433                 Return                                                            ; return
 
