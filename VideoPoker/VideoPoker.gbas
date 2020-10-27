@@ -50,7 +50,7 @@ const ROYALFLUSH = 10
 ' ------------------
 '   Coordinates
 ' ------------------
-const cardY = 30
+const cardY = 61
 const cardY2 = cardY + 45
 const holdY = cardY - 10
 const cardBorderY = cardY - 1
@@ -95,6 +95,7 @@ inputDevice = 255
 '   Game Setup
 ' ------------------
 gosub initCards
+gosub displayPayouts
 gosub dealCards
 
 gosub displayCards
@@ -185,7 +186,7 @@ clearHand:
     set BG_COLOUR, 32
     selectedCard = 0
     at 7,holdY : print "                         "
-    at 0,0 : print "                         "
+    at 0,110 : print "                         "
 return
 
 ' ------------------
@@ -298,6 +299,29 @@ holdCard:
         cardState(tempCard) = DRAWN
         at holdX,holdY : print "    "
     endif
+return
+
+' ------------------
+'   Display Payouts
+' ------------------
+displayPayouts:
+    set BG_COLOUR, 16
+    set FG_COLOUR, 16
+    rectf 3, 2, 156, 49
+    set FG_COLOUR, 63
+    rect 3, 2, 156, 49
+
+    set FG_COLOUR, 15
+    at 32,4 :  print "Royal Flush x250"
+    set FG_COLOUR, 63
+    at 5,13 : print "S.Flush  x50"
+    at 5,22 : print "4-Kind   x25"
+    at 5,31 : print "F.House  x9"
+    at 5,40 : print "Flush    x6"
+    at 90,13 : print "Straight x4"
+    at 90,22 : print "3-Kind   x3"
+    at 90,31 : print "Two Pair x2"
+    at 90,40 : print "Jacks+   x1"
 return
 
 ' ------------------
@@ -475,61 +499,61 @@ checkHand:
 ' Royal Flush
     gosub royalFlush
     if winType &= ROYALFLUSH
-        at 0,0 : print "Royal Flush!"
+        at 10,110 : print "Royal Flush!"
         return
     endif
 
 ' Straight Flush
     gosub straightFlush
     if winType &= STRAIGHTFLUSH
-        at 0,0 : print "Straight Flush!"
+        at 10,110 : print "Straight Flush!"
         return
     endif
 
 ' Four of a Kind
     gosub fourOfAKind
     if winType &= FOUROFAKIND
-        at 0,0 : print "Four of a Kind!"
+        at 10,110 : print "Four of a Kind!"
         return
     endif
 
 ' Full House
     gosub fullHouse
     if winType &= FULLHOUSE
-        at 0,0 : print "Full House!"
+        at 10,110 : print "Full House!"
         return
     endif
 
 ' Flush
     if flushFlag &= 1
-        at 0,0 : print "Flush!"
+        at 10,110 : print "Flush!"
         return
     endif
 
 ' Straight
     if straightFlag &= 1
-        at 0,0 : print "Straight!"
+        at 10,110 : print "Straight!"
         return
     endif
 
 ' Three of a Kind
     gosub threeOfAKind
     if winType &= THREEOFAKIND
-        at 0,0 : print "Three of a Kind!"
+        at 10,110 : print "Three of a Kind!"
         return
     endif
 
 ' Two Pair
     gosub twoPair
     if winType &= TWOPAIR
-        at 0,0 : print "Two Pair!"
+        at 10,110 : print "Two Pair!"
         return
     endif
 
 ' Jacks or Better
     gosub jacksOrBetter
     if winType &= JACKSORBETTER
-        at 0,0 : print "Jacks or Better!"
+        at 10,110 : print "Jacks or Better!"
         return
     endif
 return
