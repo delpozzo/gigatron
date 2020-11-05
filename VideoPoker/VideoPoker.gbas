@@ -95,6 +95,11 @@ inputDevice = 255
 '   Game Setup
 ' ------------------
 gosub initCards
+set BG_COLOUR, 16
+set FG_COLOUR, 16
+rectf 3, 0, 156, 47
+set FG_COLOUR, 63
+rect 3, 0, 156, 47
 gosub displayPayouts
 gosub dealCards
 
@@ -141,9 +146,12 @@ handleInput:
             gosub drawCards
             gosub displayCards
             gosub checkHand
+            gosub displayPayouts
         else
             currentRound = DEAL
+            winType = NONE
             gosub clearHand
+            gosub displayPayouts
             gosub dealCards
             gosub displayCards
             gosub selectCard
@@ -306,22 +314,59 @@ return
 ' ------------------
 displayPayouts:
     set BG_COLOUR, 16
-    set FG_COLOUR, 16
-    rectf 3, 2, 156, 49
-    set FG_COLOUR, 63
-    rect 3, 2, 156, 49
+    set FG_COLOUR, 42
+    if winType &= ROYALFLUSH
+        set FG_COLOUR, 15
+    endif
+    at 32,2 :  print "Royal Flush x250"
 
-    set FG_COLOUR, 15
-    at 32,4 :  print "Royal Flush x250"
-    set FG_COLOUR, 63
-    at 5,13 : print "S.Flush  x50"
-    at 5,22 : print "4-Kind   x25"
-    at 5,31 : print "F.House  x9"
-    at 5,40 : print "Flush    x6"
-    at 90,13 : print "Straight x4"
-    at 90,22 : print "3-Kind   x3"
-    at 90,31 : print "Two Pair x2"
-    at 90,40 : print "Jacks+   x1"
+    set FG_COLOUR, 42
+    if winType &= STRAIGHTFLUSH
+        set FG_COLOUR, 15
+    endif
+    at 5,11 : print "S.Flush  x50"
+
+    set FG_COLOUR, 42
+    if winType &= FOUROFAKIND
+        set FG_COLOUR, 15
+    endif
+    at 5,20 : print "4-Kind   x25"
+
+    set FG_COLOUR, 42
+    if winType &= FULLHOUSE
+        set FG_COLOUR, 15
+    endif
+    at 5,29 : print "F.House  x9"
+
+    set FG_COLOUR, 42
+    if winType &= FLUSH
+        set FG_COLOUR, 15
+    endif
+    at 5,38 : print "Flush    x6"
+
+    set FG_COLOUR, 42
+    if winType &= STRAIGHT
+        set FG_COLOUR, 15
+    endif
+    at 90,11 : print "Straight x4"
+
+    set FG_COLOUR, 42
+    if winType &= THREEOFAKIND
+        set FG_COLOUR, 15
+    endif
+    at 90,20 : print "3-Kind   x3"
+
+    set FG_COLOUR, 42
+    if winType &= TWOPAIR
+        set FG_COLOUR, 15
+    endif
+    at 90,29 : print "Two Pair x2"
+
+    set FG_COLOUR, 42
+    if winType &= JACKSORBETTER
+        set FG_COLOUR, 15
+    endif
+    at 90,38 : print "Jacks+   x1"
 return
 
 ' ------------------
