@@ -58,15 +58,15 @@ _displayPayouts               EQU                               0x0fd5
 _displayCards                 EQU                               0x14e3
 _sortCards                    EQU                               0x31b5
 _checkHand                    EQU                               0x33a2
-_jacksOrBetter                EQU                               0x38c2
-_twoPair                      EQU                               0x39ce
-_threeOfAKind                 EQU                               0x3db2
-_straight                     EQU                               0x3ed8
-_flush                        EQU                               0x42e2
-_fullHouse                    EQU                               0x45a6
-_fourOfAKind                  EQU                               0x48d2
-_straightFlush                EQU                               0x4ca8
-_royalFlush                   EQU                               0x4cc7
+_jacksOrBetter                EQU                               0x38ca
+_twoPair                      EQU                               0x39d5
+_threeOfAKind                 EQU                               0x3db9
+_straight                     EQU                               0x3edf
+_flush                        EQU                               0x42ea
+_fullHouse                    EQU                               0x45b0
+_fourOfAKind                  EQU                               0x48dc
+_straightFlush                EQU                               0x4cb4
+_royalFlush                   EQU                               0x4cd3
 _page_0x0300                  EQU                               0x0300
 _endif_0x02fb                 EQU                               0x0304
 _endif_0x0309                 EQU                               0x0312
@@ -201,52 +201,52 @@ _page_0x35a0                  EQU                               0x35a0
 _endif_0x17df                 EQU                               0x35a9
 _endif_0x1812                 EQU                               0x35d8
 _page_0x36a0                  EQU                               0x36a0
-_endif_0x1840                 EQU                               0x36b3
-_endif_0x186e                 EQU                               0x36dd
+_endif_0x1844                 EQU                               0x36b3
+_endif_0x1876                 EQU                               0x36e1
 _page_0x37a0                  EQU                               0x37a0
-_endif_0x18a1                 EQU                               0x37b8
-_endif_0x18d4                 EQU                               0x37e7
+_endif_0x18a9                 EQU                               0x37ba
+_endif_0x18dc                 EQU                               0x37e9
 _page_0x38a0                  EQU                               0x38a0
-_endif_0x1907                 EQU                               0x38c0
-_next_0x190e                  EQU                               0x38c7
+_endif_0x190f                 EQU                               0x38c8
+_next_0x1916                  EQU                               0x38cf
 _page_0x39a0                  EQU                               0x39a0
-_endif_0x1982                 EQU                               0x39be
+_endif_0x198a                 EQU                               0x39c5
 _page_0x3aa0                  EQU                               0x3aa0
-_elseif_0x1a1c                EQU                               0x3ae3
+_elseif_0x1a24                EQU                               0x3aea
 _page_0x3ba0                  EQU                               0x3ba0
 _page_0x3ca0                  EQU                               0x3ca0
-_elseif_0x1aa5                EQU                               0x3ca2
+_elseif_0x1aad                EQU                               0x3ca9
 _page_0x3da0                  EQU                               0x3da0
-_endif_0x1b29                 EQU                               0x3db0
-_next_0x1b30                  EQU                               0x3db7
+_endif_0x1b31                 EQU                               0x3db7
+_next_0x1b38                  EQU                               0x3dbe
 _page_0x3ea0                  EQU                               0x3ea0
-_endif_0x1bc8                 EQU                               0x3ec8
+_endif_0x1bd0                 EQU                               0x3ecf
 _page_0x3fa0                  EQU                               0x3fa0
 _page_0x40a0                  EQU                               0x40a0
 _page_0x41a0                  EQU                               0x41a0
-_elseif_0x1d08                EQU                               0x41ab
+_elseif_0x1d10                EQU                               0x41b3
 _page_0x42a0                  EQU                               0x42a0
-_endif_0x1dce                 EQU                               0x42e0
+_endif_0x1dd6                 EQU                               0x42e8
 _page_0x43a0                  EQU                               0x43a0
 _page_0x44a0                  EQU                               0x44a0
 _page_0x45a0                  EQU                               0x45a0
-_endif_0x1ed1                 EQU                               0x45a4
+_endif_0x1ed9                 EQU                               0x45ae
 _page_0x46a0                  EQU                               0x46a0
-_elseif_0x1f9b                EQU                               0x46e8
+_elseif_0x1fa3                EQU                               0x46f3
 _page_0x47a0                  EQU                               0x47a0
 _page_0x48a0                  EQU                               0x48a0
-_endif_0x205d                 EQU                               0x48d0
+_endif_0x2065                 EQU                               0x48da
 _page_0x49a0                  EQU                               0x49a0
 _page_0x4aa0                  EQU                               0x4aa0
-_elseif_0x2127                EQU                               0x4abe
+_elseif_0x212f                EQU                               0x4acb
 _page_0x4ba0                  EQU                               0x4ba0
 _page_0x4ca0                  EQU                               0x4ca0
-_endif_0x21e9                 EQU                               0x4ca6
-_endif_0x2210                 EQU                               0x4cc5
+_endif_0x21f1                 EQU                               0x4cb2
+_endif_0x2218                 EQU                               0x4cd1
 _page_0x4da0                  EQU                               0x4da0
 _page_0x4ea0                  EQU                               0x4ea0
-_endif_0x22e7                 EQU                               0x4eb2
-_end_0x22e9                   EQU                               0x4eb4
+_endif_0x22ef                 EQU                               0x4ebe
+_end_0x22f1                   EQU                               0x4ec0
 
 ; Global Variables
 _balance                      EQU                               0x0030
@@ -2634,7 +2634,10 @@ _endif_0x17df                 LDWI                              _fullHouse
 
 _endif_0x1812                 LDW                               _flushFlag
                               XORI                              1
-                              JumpEQ                            _endif_0x1840 80                ; if flushFlag &= 1
+                              JumpEQ                            _endif_0x1844 80                ; if flushFlag &= 1
+
+                              LDI                               5
+                              STW                               _winType                        ; winType = FLUSH
 
                               LDI                               10
                               ST                                cursorXY
@@ -2650,9 +2653,12 @@ _page_0x36a0                  LDW                               0xc0
 
                               Return                                                            ; return
 
-_endif_0x1840                 LDW                               _straightFlag
+_endif_0x1844                 LDW                               _straightFlag
                               XORI                              1
-                              JumpEQ                            _endif_0x186e 81                ; if straightFlag &= 1
+                              JumpEQ                            _endif_0x1876 81                ; if straightFlag &= 1
+
+                              LDI                               4
+                              STW                               _winType                        ; winType = STRAIGHT
 
                               LDI                               10
                               ST                                cursorXY
@@ -2664,33 +2670,33 @@ _endif_0x1840                 LDW                               _straightFlag
 
                               Return                                                            ; return
 
-_endif_0x186e                 LDWI                              _threeOfAKind
+_endif_0x1876                 LDWI                              _threeOfAKind
                               CALL                              giga_vAC                        ; gosub threeOfAKind
 
                               LDW                               _winType
                               XORI                              3
-                              JumpEQ                            _endif_0x18a1 82                ; if winType &= THREEOFAKIND
+                              JumpEQ                            _endif_0x18a9 82                ; if winType &= THREEOFAKIND
 
                               LDI                               10
                               ST                                cursorXY
                               LDI                               110
-                              ST                                cursorXY + 1
                               STW                               0xc0
                               LDWI                              _page_0x37a0
                               CALL                              giga_vAC
 _page_0x37a0                  LDW                               0xc0
+                              ST                                cursorXY + 1
                               AtTextCursor                      
                               PrintString                       _str_0x70ac
                               NewLine                                                           ; at 10,110 : print "Three of a Kind!"
 
                               Return                                                            ; return
 
-_endif_0x18a1                 LDWI                              _twoPair
+_endif_0x18a9                 LDWI                              _twoPair
                               CALL                              giga_vAC                        ; gosub twoPair
 
                               LDW                               _winType
                               XORI                              2
-                              JumpEQ                            _endif_0x18d4 83                ; if winType &= TWOPAIR
+                              JumpEQ                            _endif_0x18dc 83                ; if winType &= TWOPAIR
 
                               LDI                               10
                               ST                                cursorXY
@@ -2702,17 +2708,17 @@ _endif_0x18a1                 LDWI                              _twoPair
 
                               Return                                                            ; return
 
-_endif_0x18d4                 LDWI                              _jacksOrBetter
+_endif_0x18dc                 LDWI                              _jacksOrBetter
                               CALL                              giga_vAC                        ; gosub jacksOrBetter
 
                               LDW                               _winType
                               XORI                              1
-                              JumpEQ                            _endif_0x1907 84                ; if winType &= JACKSORBETTER
-
                               STW                               0xc0
                               LDWI                              _page_0x38a0
                               CALL                              giga_vAC
 _page_0x38a0                  LDW                               0xc0
+                              JumpEQ                            _endif_0x190f 84                ; if winType &= JACKSORBETTER
+
                               LDI                               10
                               ST                                cursorXY
                               LDI                               110
@@ -2723,13 +2729,13 @@ _page_0x38a0                  LDW                               0xc0
 
                               Return                                                            ; return
 
-_endif_0x1907                 Return                                                            ; return
+_endif_0x190f                 Return                                                            ; return
 
 _jacksOrBetter                PUSH                              
                               LDI                               0
                               STW                               _i                              ; for i = 0 to 4
 
-_next_0x190e                  LDWI                              0x72f4
+_next_0x1916                  LDWI                              0x72f4
                               ADDW                              _i
                               ADDW                              _i
                               DEEK                              
@@ -2751,14 +2757,14 @@ _next_0x190e                  LDWI                              0x72f4
                               STW                               0xe8
                               LDWI                              0x0696
                               ADDW                              _tempValue2
-                              ADDW                              _tempValue2
-                              DEEK                              
-                              XORW                              0xe8
-                              CALL                              convertEqOpAddr
                               STW                               0xc0
                               LDWI                              _page_0x39a0
                               CALL                              giga_vAC
 _page_0x39a0                  LDW                               0xc0
+                              ADDW                              _tempValue2
+                              DEEK                              
+                              XORW                              0xe8
+                              CALL                              convertEqOpAddr
                               STW                               0xea
                               LDWI                              0x0696
                               ADDW                              _tempValue2
@@ -2767,12 +2773,12 @@ _page_0x39a0                  LDW                               0xc0
                               SUBI                              10
                               CALL                              convertGtOpAddr
                               ANDW                              0xea
-                              JumpFalse                         _endif_0x1982 85                ; if (cardValue(tempValue1) = cardValue(tempValue2)) AND (cardValue(tempValue2) > 10)
+                              JumpFalse                         _endif_0x198a 85                ; if (cardValue(tempValue1) = cardValue(tempValue2)) AND (cardValue(tempValue2) > 10)
 
                               LDI                               1
                               STW                               _winType                        ; winType = JACKSORBETTER
 
-_endif_0x1982                 ForNextFarInc                     _i _next_0x190e 4               ; next i
+_endif_0x198a                 ForNextFarInc                     _i _next_0x1916 4               ; next i
 
                               Return                                                            ; return
 
@@ -2793,14 +2799,14 @@ _twoPair                      PUSH
                               LDI                               1
                               STW                               memIndex1
                               LDWI                              0x0696
-                              ADDW                              memIndex0
-                              ADDW                              memIndex0
-                              DEEK                              
-                              XORW                              0xea
                               STW                               0xc0
                               LDWI                              _page_0x3aa0
                               CALL                              giga_vAC
 _page_0x3aa0                  LDW                               0xc0
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
                               CALL                              convertEqOpAddr
                               STW                               0xee
                               LDWI                              0x72f8
@@ -2825,27 +2831,27 @@ _page_0x3aa0                  LDW                               0xc0
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _elseif_0x1a1c 86               ; if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3)))
+                              JumpFalse                         _elseif_0x1a24 86               ; if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3)))
 
                               LDI                               2
                               STW                               _winType
-                              LDWI                              _endif_0x1b29
+                              LDWI                              _endif_0x1b31
                               CALL                              giga_vAC                        ; winType = TWOPAIR
 
-_elseif_0x1a1c                LDWI                              0x72f6
+_elseif_0x1a24                LDWI                              0x72f6
                               DEEK                              
                               STW                               memIndex0
                               LDI                               1
                               STW                               memIndex1
                               LDWI                              0x0696
-                              ADDW                              memIndex0
-                              ADDW                              memIndex0
-                              DEEK                              
-                              STW                               0xea
                               STW                               0xc0
                               LDWI                              _page_0x3ba0
                               CALL                              giga_vAC
 _page_0x3ba0                  LDW                               0xc0
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
                               LDWI                              0x72f8
                               DEEK                              
                               STW                               memIndex0
@@ -2880,18 +2886,18 @@ _page_0x3ba0                  LDW                               0xc0
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _elseif_0x1aa5 87               ; elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+                              JumpFalse                         _elseif_0x1aad 87               ; elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4)))
 
                               LDI                               2
-                              STW                               _winType
-                              LDWI                              _endif_0x1b29
-                              CALL                              giga_vAC                        ; winType = TWOPAIR
-
                               STW                               0xc0
                               LDWI                              _page_0x3ca0
                               CALL                              giga_vAC
 _page_0x3ca0                  LDW                               0xc0
-_elseif_0x1aa5                LDWI                              0x72f4
+                              STW                               _winType
+                              LDWI                              _endif_0x1b31
+                              CALL                              giga_vAC                        ; winType = TWOPAIR
+
+_elseif_0x1aad                LDWI                              0x72f4
                               DEEK                              
                               STW                               memIndex0
                               LDI                               0
@@ -2930,27 +2936,27 @@ _elseif_0x1aa5                LDWI                              0x72f4
                               STW                               memIndex1
                               LDWI                              0x0696
                               ADDW                              memIndex0
-                              ADDW                              memIndex0
-                              DEEK                              
-                              XORW                              0xea
-                              CALL                              convertEqOpAddr
                               STW                               0xc0
                               LDWI                              _page_0x3da0
                               CALL                              giga_vAC
 _page_0x3da0                  LDW                               0xc0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              XORW                              0xea
+                              CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _endif_0x1b29 88                ; elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+                              JumpFalse                         _endif_0x1b31 88                ; elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(3)) = cardValue(hand(4)))
 
                               LDI                               2
                               STW                               _winType                        ; winType = TWOPAIR
 
-_endif_0x1b29                 Return                                                            ; return
+_endif_0x1b31                 Return                                                            ; return
 
 _threeOfAKind                 PUSH                              
                               LDI                               0
                               STW                               _i                              ; for i = 0 to 2
 
-_next_0x1b30                  LDWI                              0x72f4
+_next_0x1b38                  LDWI                              0x72f4
                               ADDW                              _i
                               ADDW                              _i
                               DEEK                              
@@ -2981,14 +2987,14 @@ _next_0x1b30                  LDWI                              0x72f4
                               STW                               0xe8
                               LDWI                              0x0696
                               ADDW                              _tempValue2
-                              ADDW                              _tempValue2
-                              DEEK                              
-                              XORW                              0xe8
-                              CALL                              convertEqOpAddr
                               STW                               0xc0
                               LDWI                              _page_0x3ea0
                               CALL                              giga_vAC
 _page_0x3ea0                  LDW                               0xc0
+                              ADDW                              _tempValue2
+                              DEEK                              
+                              XORW                              0xe8
+                              CALL                              convertEqOpAddr
                               STW                               0xea
                               LDWI                              0x0696
                               ADDW                              _tempValue2
@@ -3002,12 +3008,12 @@ _page_0x3ea0                  LDW                               0xc0
                               XORW                              0xec
                               CALL                              convertEqOpAddr
                               ANDW                              0xea
-                              JumpFalse                         _endif_0x1bc8 89                ; if (cardValue(tempValue1) = cardValue(tempValue2)) AND (cardValue(tempValue2) = cardValue(tempValue3))
+                              JumpFalse                         _endif_0x1bd0 89                ; if (cardValue(tempValue1) = cardValue(tempValue2)) AND (cardValue(tempValue2) = cardValue(tempValue3))
 
                               LDI                               3
                               STW                               _winType                        ; winType = THREEOFAKIND
 
-_endif_0x1bc8                 ForNextFarInc                     _i _next_0x1b30 2               ; next i
+_endif_0x1bd0                 ForNextFarInc                     _i _next_0x1b38 2               ; next i
 
                               Return                                                            ; return
 
@@ -3024,13 +3030,13 @@ _straight                     PUSH
                               STW                               0xea
                               LDWI                              0x72fa
                               DEEK                              
-                              STW                               memIndex0
-                              LDI                               3
-                              STW                               memIndex1
                               STW                               0xc0
                               LDWI                              _page_0x3fa0
                               CALL                              giga_vAC
 _page_0x3fa0                  LDW                               0xc0
+                              STW                               memIndex0
+                              LDI                               3
+                              STW                               memIndex1
                               LDWI                              0x0696
                               ADDW                              memIndex0
                               ADDW                              memIndex0
@@ -3070,14 +3076,14 @@ _page_0x3fa0                  LDW                               0xc0
                               LDI                               2
                               STW                               memIndex1
                               LDWI                              0x0696
-                              ADDW                              memIndex0
-                              ADDW                              memIndex0
-                              DEEK                              
-                              ADDI                              2
                               STW                               0xc0
                               LDWI                              _page_0x40a0
                               CALL                              giga_vAC
 _page_0x40a0                  LDW                               0xc0
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              ADDI                              2
                               STW                               0xea
                               LDWI                              0x72f6
                               DEEK                              
@@ -3117,18 +3123,18 @@ _page_0x40a0                  LDW                               0xc0
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _elseif_0x1d08 90               ; if (cardValue(hand(4)) = cardValue(hand(3))+1) AND (cardValue(hand(3))+1 = cardValue(hand(2))+2) AND (cardValue(hand(2))+2 = cardValue(hand(1))+3) AND (cardValue(hand(1))+3 = cardValue(hand(0))+4)
-
                               STW                               0xc0
                               LDWI                              _page_0x41a0
                               CALL                              giga_vAC
 _page_0x41a0                  LDW                               0xc0
+                              JumpFalse                         _elseif_0x1d10 90               ; if (cardValue(hand(4)) = cardValue(hand(3))+1) AND (cardValue(hand(3))+1 = cardValue(hand(2))+2) AND (cardValue(hand(2))+2 = cardValue(hand(1))+3) AND (cardValue(hand(1))+3 = cardValue(hand(0))+4)
+
                               LDI                               1
                               STW                               _straightFlag
-                              LDWI                              _endif_0x1dce
+                              LDWI                              _endif_0x1dd6
                               CALL                              giga_vAC                        ; straightFlag = 1
 
-_elseif_0x1d08                LDWI                              0x72fc
+_elseif_0x1d10                LDWI                              0x72fc
                               DEEK                              
                               STW                               memIndex0
                               LDI                               4
@@ -3162,14 +3168,14 @@ _elseif_0x1d08                LDWI                              0x72fc
                               ADDW                              memIndex0
                               ADDW                              memIndex0
                               DEEK                              
-                              XORI                              3
-                              CALL                              convertEqOpAddr
-                              ANDW                              0xee
-                              STW                               0xea
                               STW                               0xc0
                               LDWI                              _page_0x42a0
                               CALL                              giga_vAC
 _page_0x42a0                  LDW                               0xc0
+                              XORI                              3
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              STW                               0xea
                               LDWI                              0x72f8
                               DEEK                              
                               STW                               memIndex0
@@ -3195,12 +3201,12 @@ _page_0x42a0                  LDW                               0xc0
                               XORI                              5
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _endif_0x1dce 91                ; elseif (cardValue(hand(4)) = ACE) AND (cardValue(hand(0)) = 2) AND (cardValue(hand(1)) = 3) AND (cardValue(hand(2)) = 4) AND (cardValue(hand(3)) = 5)
+                              JumpFalse                         _endif_0x1dd6 91                ; elseif (cardValue(hand(4)) = ACE) AND (cardValue(hand(0)) = 2) AND (cardValue(hand(1)) = 3) AND (cardValue(hand(2)) = 4) AND (cardValue(hand(3)) = 5)
 
                               LDI                               1
                               STW                               _straightFlag                   ; straightFlag = 1
 
-_endif_0x1dce                 Return                                                            ; return
+_endif_0x1dd6                 Return                                                            ; return
 
 _flush                        PUSH                              
                               LDWI                              0x72f4
@@ -3209,14 +3215,14 @@ _flush                        PUSH
                               LDI                               0
                               STW                               memIndex1
                               LDWI                              0x062c
-                              ADDW                              memIndex0
-                              ADDW                              memIndex0
-                              DEEK                              
-                              STW                               0xea
                               STW                               0xc0
                               LDWI                              _page_0x43a0
                               CALL                              giga_vAC
 _page_0x43a0                  LDW                               0xc0
+                              ADDW                              memIndex0
+                              ADDW                              memIndex0
+                              DEEK                              
+                              STW                               0xea
                               LDWI                              0x72f6
                               DEEK                              
                               STW                               memIndex0
@@ -3256,13 +3262,13 @@ _page_0x43a0                  LDW                               0xc0
                               DEEK                              
                               STW                               memIndex0
                               LDI                               2
-                              STW                               memIndex1
-                              LDWI                              0x062c
-                              ADDW                              memIndex0
                               STW                               0xc0
                               LDWI                              _page_0x44a0
                               CALL                              giga_vAC
 _page_0x44a0                  LDW                               0xc0
+                              STW                               memIndex1
+                              LDWI                              0x062c
+                              ADDW                              memIndex0
                               ADDW                              memIndex0
                               DEEK                              
                               STW                               0xea
@@ -3301,16 +3307,16 @@ _page_0x44a0                  LDW                               0xc0
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _endif_0x1ed1 92                ; if (cardSuit(hand(0)) = cardSuit(hand(1))) AND (cardSuit(hand(1)) = cardSuit(hand(2))) AND (cardSuit(hand(2)) = cardSuit(hand(3))) AND (cardSuit(hand(3)) = cardSuit(hand(4)))
-
-                              LDI                               1
                               STW                               0xc0
                               LDWI                              _page_0x45a0
                               CALL                              giga_vAC
 _page_0x45a0                  LDW                               0xc0
+                              JumpFalse                         _endif_0x1ed9 92                ; if (cardSuit(hand(0)) = cardSuit(hand(1))) AND (cardSuit(hand(1)) = cardSuit(hand(2))) AND (cardSuit(hand(2)) = cardSuit(hand(3))) AND (cardSuit(hand(3)) = cardSuit(hand(4)))
+
+                              LDI                               1
                               STW                               _flushFlag                      ; flushFlag = 1
 
-_endif_0x1ed1                 Return                                                            ; return
+_endif_0x1ed9                 Return                                                            ; return
 
 _fullHouse                    PUSH                              
                               LDWI                              0x72f4
@@ -3348,15 +3354,15 @@ _fullHouse                    PUSH
                               LDWI                              0x72f8
                               DEEK                              
                               STW                               memIndex0
+                              STW                               0xc0
+                              LDWI                              _page_0x46a0
+                              CALL                              giga_vAC
+_page_0x46a0                  LDW                               0xc0
                               LDI                               2
                               STW                               memIndex1
                               LDWI                              0x0696
                               ADDW                              memIndex0
                               ADDW                              memIndex0
-                              STW                               0xc0
-                              LDWI                              _page_0x46a0
-                              CALL                              giga_vAC
-_page_0x46a0                  LDW                               0xc0
                               DEEK                              
                               XORW                              0xea
                               CALL                              convertEqOpAddr
@@ -3384,24 +3390,24 @@ _page_0x46a0                  LDW                               0xc0
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _elseif_0x1f9b 93               ; if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+                              JumpFalse                         _elseif_0x1fa3 93               ; if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(3)) = cardValue(hand(4)))
 
                               LDI                               6
                               STW                               _winType
-                              LDWI                              _endif_0x205d
+                              LDWI                              _endif_0x2065
                               CALL                              giga_vAC                        ; winType = FULLHOUSE
 
-_elseif_0x1f9b                LDWI                              0x72f4
+_elseif_0x1fa3                LDWI                              0x72f4
                               DEEK                              
+                              STW                               0xc0
+                              LDWI                              _page_0x47a0
+                              CALL                              giga_vAC
+_page_0x47a0                  LDW                               0xc0
                               STW                               memIndex0
                               LDI                               0
                               STW                               memIndex1
                               LDWI                              0x0696
                               ADDW                              memIndex0
-                              STW                               0xc0
-                              LDWI                              _page_0x47a0
-                              CALL                              giga_vAC
-_page_0x47a0                  LDW                               0xc0
                               ADDW                              memIndex0
                               DEEK                              
                               STW                               0xea
@@ -3440,15 +3446,15 @@ _page_0x47a0                  LDW                               0xc0
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
                               STW                               0xee
+                              STW                               0xc0
+                              LDWI                              _page_0x48a0
+                              CALL                              giga_vAC
+_page_0x48a0                  LDW                               0xc0
                               LDWI                              0x72fa
                               DEEK                              
                               STW                               memIndex0
                               LDI                               3
                               STW                               memIndex1
-                              STW                               0xc0
-                              LDWI                              _page_0x48a0
-                              CALL                              giga_vAC
-_page_0x48a0                  LDW                               0xc0
                               LDWI                              0x0696
                               ADDW                              memIndex0
                               ADDW                              memIndex0
@@ -3466,12 +3472,12 @@ _page_0x48a0                  LDW                               0xc0
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _endif_0x205d 94                ; elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+                              JumpFalse                         _endif_0x2065 94                ; elseif (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
 
                               LDI                               6
                               STW                               _winType                        ; winType = FULLHOUSE
 
-_endif_0x205d                 Return                                                            ; return
+_endif_0x2065                 Return                                                            ; return
 
 _fourOfAKind                  PUSH                              
                               LDWI                              0x72f4
@@ -3487,15 +3493,15 @@ _fourOfAKind                  PUSH
                               LDWI                              0x72f6
                               DEEK                              
                               STW                               memIndex0
+                              STW                               0xc0
+                              LDWI                              _page_0x49a0
+                              CALL                              giga_vAC
+_page_0x49a0                  LDW                               0xc0
                               LDI                               1
                               STW                               memIndex1
                               LDWI                              0x0696
                               ADDW                              memIndex0
                               ADDW                              memIndex0
-                              STW                               0xc0
-                              LDWI                              _page_0x49a0
-                              CALL                              giga_vAC
-_page_0x49a0                  LDW                               0xc0
                               DEEK                              
                               XORW                              0xea
                               CALL                              convertEqOpAddr
@@ -3533,30 +3539,30 @@ _page_0x49a0                  LDW                               0xc0
                               ADDW                              memIndex0
                               DEEK                              
                               STW                               0xea
+                              STW                               0xc0
+                              LDWI                              _page_0x4aa0
+                              CALL                              giga_vAC
+_page_0x4aa0                  LDW                               0xc0
                               LDWI                              0x72fa
                               DEEK                              
                               STW                               memIndex0
                               LDI                               3
                               STW                               memIndex1
                               LDWI                              0x0696
-                              STW                               0xc0
-                              LDWI                              _page_0x4aa0
-                              CALL                              giga_vAC
-_page_0x4aa0                  LDW                               0xc0
                               ADDW                              memIndex0
                               ADDW                              memIndex0
                               DEEK                              
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               ANDW                              0xee
-                              JumpFalse                         _elseif_0x2127 95               ; if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3)))
+                              JumpFalse                         _elseif_0x212f 95               ; if (cardValue(hand(0)) = cardValue(hand(1))) AND (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3)))
 
                               LDI                               7
                               STW                               _winType
-                              LDWI                              _endif_0x21e9
+                              LDWI                              _endif_0x21f1
                               CALL                              giga_vAC                        ; winType = FOUROFAKIND
 
-_elseif_0x2127                LDWI                              0x72f6
+_elseif_0x212f                LDWI                              0x72f6
                               DEEK                              
                               STW                               memIndex0
                               LDI                               1
@@ -3578,16 +3584,16 @@ _elseif_0x2127                LDWI                              0x72f6
                               XORW                              0xea
                               CALL                              convertEqOpAddr
                               STW                               0xee
+                              STW                               0xc0
+                              LDWI                              _page_0x4ba0
+                              CALL                              giga_vAC
+_page_0x4ba0                  LDW                               0xc0
                               LDWI                              0x72f8
                               DEEK                              
                               STW                               memIndex0
                               LDI                               2
                               STW                               memIndex1
                               LDWI                              0x0696
-                              STW                               0xc0
-                              LDWI                              _page_0x4ba0
-                              CALL                              giga_vAC
-_page_0x4ba0                  LDW                               0xc0
                               ADDW                              memIndex0
                               ADDW                              memIndex0
                               DEEK                              
@@ -3625,18 +3631,18 @@ _page_0x4ba0                  LDW                               0xc0
                               ADDW                              memIndex0
                               DEEK                              
                               XORW                              0xea
-                              CALL                              convertEqOpAddr
-                              ANDW                              0xee
-                              JumpFalse                         _endif_0x21e9 96                ; elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
-
                               STW                               0xc0
                               LDWI                              _page_0x4ca0
                               CALL                              giga_vAC
 _page_0x4ca0                  LDW                               0xc0
+                              CALL                              convertEqOpAddr
+                              ANDW                              0xee
+                              JumpFalse                         _endif_0x21f1 96                ; elseif (cardValue(hand(1)) = cardValue(hand(2))) AND (cardValue(hand(2)) = cardValue(hand(3))) AND (cardValue(hand(3)) = cardValue(hand(4)))
+
                               LDI                               7
                               STW                               _winType                        ; winType = FOUROFAKIND
 
-_endif_0x21e9                 Return                                                            ; return
+_endif_0x21f1                 Return                                                            ; return
 
 _straightFlush                PUSH                              
                               LDW                               _straightFlag
@@ -3647,12 +3653,12 @@ _straightFlush                PUSH
                               XORI                              1
                               CALL                              convertEqOpAddr
                               ANDW                              0xe8
-                              JumpFalse                         _endif_0x2210 97                ; if (straightFlag = 1) AND (flushFlag = 1)
+                              JumpFalse                         _endif_0x2218 97                ; if (straightFlag = 1) AND (flushFlag = 1)
 
                               LDI                               9
                               STW                               _winType                        ; winType = STRAIGHTFLUSH
 
-_endif_0x2210                 Return                                                            ; return
+_endif_0x2218                 Return                                                            ; return
 
 _royalFlush                   PUSH                              
                               LDW                               _flushFlag
@@ -3672,16 +3678,16 @@ _royalFlush                   PUSH
                               CALL                              convertEqOpAddr
                               ANDW                              0xe8
                               STW                               0xec
+                              STW                               0xc0
+                              LDWI                              _page_0x4da0
+                              CALL                              giga_vAC
+_page_0x4da0                  LDW                               0xc0
                               LDWI                              0x72f6
                               DEEK                              
                               STW                               memIndex0
                               LDI                               1
                               STW                               memIndex1
                               LDWI                              0x0696
-                              STW                               0xc0
-                              LDWI                              _page_0x4da0
-                              CALL                              giga_vAC
-_page_0x4da0                  LDW                               0xc0
                               ADDW                              memIndex0
                               ADDW                              memIndex0
                               DEEK                              
@@ -3719,26 +3725,26 @@ _page_0x4da0                  LDW                               0xc0
                               DEEK                              
                               STW                               memIndex0
                               LDI                               4
+                              STW                               0xc0
+                              LDWI                              _page_0x4ea0
+                              CALL                              giga_vAC
+_page_0x4ea0                  LDW                               0xc0
                               STW                               memIndex1
                               LDWI                              0x0696
                               ADDW                              memIndex0
                               ADDW                              memIndex0
                               DEEK                              
                               XORI                              14
-                              STW                               0xc0
-                              LDWI                              _page_0x4ea0
-                              CALL                              giga_vAC
-_page_0x4ea0                  LDW                               0xc0
                               CALL                              convertEqOpAddr
                               ANDW                              0xe8
-                              JumpFalse                         _endif_0x22e7 98                ; if (flushFlag = 1) AND (cardValue(hand(0)) = 10) AND (cardValue(hand(1)) = JACK) AND (cardValue(hand(2)) = QUEEN) AND (cardValue(hand(3)) = KING) AND (cardValue(hand(4)) = ACE)
+                              JumpFalse                         _endif_0x22ef 98                ; if (flushFlag = 1) AND (cardValue(hand(0)) = 10) AND (cardValue(hand(1)) = JACK) AND (cardValue(hand(2)) = QUEEN) AND (cardValue(hand(3)) = KING) AND (cardValue(hand(4)) = ACE)
 
                               LDI                               10
                               STW                               _winType                        ; winType = ROYALFLUSH
 
-_endif_0x22e7                 Return                                                            ; return
+_endif_0x22ef                 Return                                                            ; return
 
-_end_0x22e9                   BRA                               _end_0x22e9                     ; END
+_end_0x22f1                   BRA                               _end_0x22f1                     ; END
 
 
 

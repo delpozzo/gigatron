@@ -571,12 +571,14 @@ checkHand:
 
 ' Flush
     if flushFlag &= 1
+        winType = FLUSH
         at 10,110 : print "Flush!"
         return
     endif
 
 ' Straight
     if straightFlag &= 1
+        winType = STRAIGHT
         at 10,110 : print "Straight!"
         return
     endif
