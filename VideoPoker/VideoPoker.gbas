@@ -77,7 +77,9 @@ dim hand(5)
 ' ------------------
 '   Other Vars
 ' ------------------
-balance = 100
+balance = 25
+betAmount = 1
+winAmount = 0
 currentRound = DEAL
 selectedCard = 0
 pickedCard = 0
@@ -105,6 +107,8 @@ gosub dealCards
 
 gosub displayCards
 gosub selectCard
+gosub displayBalance
+gosub displayBet
 
 ' ------------------
 '   Main Loop
@@ -138,6 +142,24 @@ handleInput:
         wait 10
     endif
 
+    if (inputDevice = 247) AND (currentRound = DRAW)
+        betAmount = betAmount + 1
+        if betAmount &> 5
+            betAmount = 1
+        endif
+        gosub displayBet
+        wait 10
+    endif
+
+    if (inputDevice = 251) AND (currentRound = DRAW)
+        betAmount = betAmount - 1
+        if betAmount &< 1
+            betAmount = 5
+        endif
+        gosub displayBet
+        wait 10
+    endif
+
     if inputDevice &= 191
         if currentRound &= DEAL
             currentRound = DRAW
@@ -146,11 +168,14 @@ handleInput:
             gosub drawCards
             gosub displayCards
             gosub checkHand
+            gosub updateBalance
             gosub displayPayouts
         else
             currentRound = DEAL
             winType = NONE
             gosub clearHand
+            balance = balance - betAmount
+            gosub displayBalance
             gosub displayPayouts
             gosub dealCards
             gosub displayCards
@@ -194,7 +219,7 @@ clearHand:
     set BG_COLOUR, 32
     selectedCard = 0
     at 7,holdY : print "                         "
-    at 0,110 : print "                         "
+    at 0,110 : print "         "
 return
 
 ' ------------------
@@ -367,6 +392,41 @@ displayPayouts:
         set FG_COLOUR, 15
     endif
     at 90,38 : print "Jacks+   x1"
+return
+
+' ------------------
+'   Display Balance
+' ------------------
+displayBalance:
+    set BG_COLOUR, 32
+    set FG_COLOUR, 63
+    at 107,110 : print "Bal:"
+    at 130,110 : print balance
+return
+
+' ------------------
+'   Update Balance
+' ------------------
+updateBalance:
+    if winAmount &> 0
+        set BG_COLOUR, 3
+        set FG_COLOUR, 15
+        at 3,110 : print "Win:"
+        at 26,110 : print winAmount
+        balance = balance + winAmount
+        winAmount = 0
+        gosub displayBalance
+    endif
+return
+
+' ------------------
+'   Display Bet
+' ------------------
+displayBet:
+    set BG_COLOUR, 32
+    set FG_COLOUR, 63
+    at 60,110 : print "Bet:"
+    at 83,110 : print betAmount
 return
 
 ' ------------------
@@ -544,63 +604,63 @@ checkHand:
 ' Royal Flush
     gosub royalFlush
     if winType &= ROYALFLUSH
-        at 10,110 : print "Royal Flush!"
+        winAmount = 250 * betAmount
         return
     endif
 
 ' Straight Flush
     gosub straightFlush
     if winType &= STRAIGHTFLUSH
-        at 10,110 : print "Straight Flush!"
+        winAmount = 50 * betAmount
         return
     endif
 
 ' Four of a Kind
     gosub fourOfAKind
     if winType &= FOUROFAKIND
-        at 10,110 : print "Four of a Kind!"
+        winAmount = 25 * betAmount
         return
     endif
 
 ' Full House
     gosub fullHouse
     if winType &= FULLHOUSE
-        at 10,110 : print "Full House!"
+        winAmount = 9 * betAmount
         return
     endif
 
 ' Flush
     if flushFlag &= 1
         winType = FLUSH
-        at 10,110 : print "Flush!"
+        winAmount = 6 * betAmount
         return
     endif
 
 ' Straight
     if straightFlag &= 1
         winType = STRAIGHT
-        at 10,110 : print "Straight!"
+        winAmount = 4 * betAmount
         return
     endif
 
 ' Three of a Kind
     gosub threeOfAKind
     if winType &= THREEOFAKIND
-        at 10,110 : print "Three of a Kind!"
+        winAmount = 3 * betAmount
         return
     endif
 
 ' Two Pair
     gosub twoPair
     if winType &= TWOPAIR
-        at 10,110 : print "Two Pair!"
+        winAmount = 2 * betAmount
         return
     endif
 
 ' Jacks or Better
     gosub jacksOrBetter
     if winType &= JACKSORBETTER
-        at 10,110 : print "Jacks or Better!"
+        winAmount = betAmount
         return
     endif
 return
