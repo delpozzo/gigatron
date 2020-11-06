@@ -7,7 +7,7 @@ A collection of software and tools I developed for the [Gigatron TTL microcomput
 
 A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gigatron.io/viewtopic.php?f=4&t=232). Requires Gigatron ROMv3 or higher.
 
-![Screenshot](screenshots/videopoker-alpha-02.png?raw=true)
+![Screenshot](screenshots/videopoker-alpha-03.png?raw=true)
 
 **What Works:**
 - Deal cards
