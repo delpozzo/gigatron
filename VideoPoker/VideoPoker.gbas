@@ -175,6 +175,9 @@ handleInput:
             winType = NONE
             gosub clearHand
             balance = balance - betAmount
+            if balance &< 0
+                balance = 0
+            endif
             gosub displayBalance
             gosub displayPayouts
             gosub dealCards
@@ -400,8 +403,19 @@ return
 displayBalance:
     set BG_COLOUR, 32
     set FG_COLOUR, 63
-    at 107,110 : print "Bal:"
-    at 130,110 : print balance
+    if balance &< 10
+        at 106,110 : print "Bal:000"
+        at 148,110 : print balance
+    elseif balance &< 100
+        at 106,110 : print "Bal:00"
+        at 142,110 : print balance
+    elseif balance &< 999
+        at 106,110 : print "Bal:0"
+        at 136,110 : print balance
+    else
+        at 106,110 : print "Bal:"
+        at 130,110 : print balance
+    endif
 return
 
 ' ------------------
@@ -414,6 +428,9 @@ updateBalance:
         at 3,110 : print "Win:"
         at 26,110 : print winAmount
         balance = balance + winAmount
+        if balance &> 9999
+            balance = 9999
+        endif
         winAmount = 0
         gosub displayBalance
     endif
@@ -425,8 +442,8 @@ return
 displayBet:
     set BG_COLOUR, 32
     set FG_COLOUR, 63
-    at 60,110 : print "Bet:"
-    at 83,110 : print betAmount
+    at 57,110 : print "Bet:"
+    at 80,110 : print betAmount
 return
 
 ' ------------------
