@@ -29,7 +29,7 @@ const ACE = 14
 ' ------------------
 '   Rounds
 ' ------------------
-const BET = 0
+const GAMEOVER = 0
 const DEAL = 1
 const DRAW = 2
 
@@ -111,8 +111,11 @@ gosub displayBet
 '   Main Loop
 ' ------------------
 loop:
-    gosub handleInput
-
+    if currentRound &= GAMEOVER
+        gosub gameOverInput
+    else    
+        gosub handleInput
+    endif
     goto &loop
 
 ' ------------------
@@ -172,6 +175,10 @@ handleInput:
             winType = NONE
             gosub clearHand
             gosub displayCardBacks
+            if betAmount &> balance
+                betAmount = balance
+                gosub displayBet
+            endif
             balance = balance - betAmount
             if balance &< 0
                 balance = 0
@@ -189,6 +196,27 @@ handleInput:
         gosub holdCard
         wait 10
     endif
+return
+
+' ------------------
+'   Game Over
+' ------------------
+gameOverInput:
+    inputDevice = get("BUTTON_STATE")
+
+    if inputDevice &= 127
+        balance = 25
+        gosub clearHand
+        gosub displayCardBacks
+        gosub displayBalance
+        currentRound = DRAW
+    endif
+return
+
+displayGameOver:
+    set FG_COLOUR, 63
+    set BG_COLOUR, 3
+    at 20,holdY : print "Game Over. Press (A)"
 return
 
 ' ------------------
@@ -431,6 +459,12 @@ updateBalance:
         endif
         winAmount = 0
         gosub displayBalance
+    endif
+
+    if balance &< 1
+        currentRound = GAMEOVER
+        gosub clearHand
+        gosub displayGameOver
     endif
 return
 
