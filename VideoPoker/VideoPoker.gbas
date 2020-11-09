@@ -80,7 +80,7 @@ dim hand(5)
 balance = 25
 betAmount = 1
 winAmount = 0
-currentRound = DEAL
+currentRound = DRAW
 selectedCard = 0
 pickedCard = 0
 tempCard = 0
@@ -103,10 +103,7 @@ rectf 3, 0, 156, 47
 set FG_COLOUR, 63
 rect 3, 0, 156, 47
 gosub displayPayouts
-gosub dealCards
-
-gosub displayCards
-gosub selectCard
+gosub displayCardBacks
 gosub displayBalance
 gosub displayBet
 
@@ -174,6 +171,7 @@ handleInput:
             currentRound = DEAL
             winType = NONE
             gosub clearHand
+            gosub displayCardBacks
             balance = balance - betAmount
             if balance &< 0
                 balance = 0
@@ -447,15 +445,38 @@ displayBet:
 return
 
 ' ------------------
+' Display Card Backs
+' ------------------
+displayCardBacks:
+    set FG_COLOUR, 0
+    rectf 3, cardBorderY, 32, cardBorderY2
+    rectf 34, cardBorderY, 63, cardBorderY2
+    rectf 65, cardBorderY, 94, cardBorderY2
+    rectf 96, cardBorderY, 125, cardBorderY2
+    rectf 127, cardBorderY, 156, cardBorderY2
+    set FG_COLOUR, 21
+    rectf 4, cardY, 31, cardY2
+    rectf 35, cardY, 62, cardY2
+    rectf 66, cardY, 93, cardY2
+    rectf 97, cardY, 124, cardY2
+    rectf 128, cardY, 155, cardY2
+return
+
+' ------------------
 '   Display Cards
 ' ------------------
 displayCards:
+    set FG_COLOUR, 0
     set BG_COLOUR, 63
 
 ' Card 1
     if cardState(hand(0)) &= DRAWN
-        set FG_COLOUR, 0
-        rectf 3, cardBorderY, 32, cardBorderY2
+        if currentRound &= DRAW
+            set FG_COLOUR, 0
+            rectf 3, cardBorderY, 32, cardBorderY2
+            set FG_COLOUR, 21
+            rectf 4, cardY, 31, cardY2
+        endif
         WAIT 10
         set FG_COLOUR, 63
         rectf 4, cardY, 31, cardY2
@@ -480,8 +501,12 @@ displayCards:
 
 ' Card 2
     if cardState(hand(1)) &= DRAWN
-        set FG_COLOUR, 0
-        rectf 34, cardBorderY, 63, cardBorderY2
+        if currentRound &= DRAW
+            set FG_COLOUR, 0
+            rectf 34, cardBorderY, 63, cardBorderY2
+            set FG_COLOUR, 21
+            rectf 35, cardY, 62, cardY2
+        endif
         WAIT 10
         set FG_COLOUR, 63
         rectf 35, cardY, 62, cardY2
@@ -506,8 +531,12 @@ displayCards:
 
 ' Card 3
     if cardState(hand(2)) &= DRAWN
-        set FG_COLOUR, 0
-        rectf 65, cardBorderY, 94, cardBorderY2
+        if currentRound &= DRAW
+            set FG_COLOUR, 0
+            rectf 65, cardBorderY, 94, cardBorderY2
+            set FG_COLOUR, 21
+            rectf 66, cardY, 93, cardY2
+        endif
         WAIT 10
         set FG_COLOUR, 63
         rectf 66, cardY, 93, cardY2
@@ -532,8 +561,12 @@ displayCards:
 
 ' Card 4
     if cardState(hand(3)) &= DRAWN
-        set FG_COLOUR, 0
-        rectf 96, cardBorderY, 125, cardBorderY2
+        if currentRound &= DRAW
+            set FG_COLOUR, 0
+            rectf 96, cardBorderY, 125, cardBorderY2
+            set FG_COLOUR, 21
+            rectf 97, cardY, 124, cardY2
+        endif
         WAIT 10
         set FG_COLOUR, 63
         rectf 97, cardY, 124, cardY2
@@ -558,8 +591,12 @@ displayCards:
 
 ' Card 5
     if cardState(hand(4)) &= DRAWN
-        set FG_COLOUR, 0
-        rectf 127, cardBorderY, 156, cardBorderY2
+        if currentRound &= DRAW
+            set FG_COLOUR, 0
+            rectf 127, cardBorderY, 156, cardBorderY2
+            set FG_COLOUR, 21
+            rectf 128, cardY, 155, cardY2
+        endif
         WAIT 10
         set FG_COLOUR, 63
         rectf 128, cardY, 155, cardY2
