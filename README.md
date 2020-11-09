@@ -15,6 +15,7 @@ A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gig
 - Select card
 - Hold card
 - Display winning hands and payouts
+- Bank (credits)
 - Win conditions
   - [X] Jacks or Better
   - [X] Two Pair
@@ -27,10 +28,6 @@ A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gig
   - [X] Royal Flush
 
 **In Progress:**
-- Bank (credits)
-
-**To-Do:**
-- Better looking design on back of cards
 - Sounds
 
 ## Tools
