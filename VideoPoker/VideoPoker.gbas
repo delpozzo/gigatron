@@ -2,6 +2,11 @@ _runtimePath_ "../../at67/gbas/runtime"
 _codeRomType_ ROMv3
 cls : mode 2
 
+'audio fix for ROMv5a
+poke &h21, peek(&h21) OR 3
+sound off
+cls
+
 ' ------------------
 '   Card Suits
 ' ------------------
@@ -148,6 +153,7 @@ handleInput:
             betAmount = 1
         endif
         gosub displayBet
+        gosub playSndBet
         wait 10
     endif
 
@@ -157,6 +163,7 @@ handleInput:
             betAmount = 5
         endif
         gosub displayBet
+        gosub playSndBet
         wait 10
     endif
 
@@ -217,6 +224,90 @@ displayGameOver:
     set FG_COLOUR, 63
     set BG_COLOUR, 3
     at 20,holdY : print "Game Over. Press (A)"
+    gosub playSndUnHold
+return
+
+' ------------------
+'   Sound FX
+' ------------------
+playSndCardFlip:
+    note = 0 : notes = note
+    index = 40
+    set SOUND_TIMER, 2
+    gosub getRomNote
+    sound on, 1, note
+    WAIT 2
+    index = 45
+    set SOUND_TIMER, 2
+    gosub getRomNote
+    sound on, 1, note
+return
+
+playSndHold:
+    note = 0 : notes = note
+    index = 40
+    set SOUND_TIMER, 4
+    gosub getRomNote
+    sound on, 1, note
+    WAIT 4
+    index = 45
+    set SOUND_TIMER, 4
+    gosub getRomNote
+    sound on, 1, note
+return
+
+playSndUnHold:
+    note = 0 : notes = note
+    index = 45
+    set SOUND_TIMER, 4
+    gosub getRomNote
+    sound on, 1, note
+    WAIT 4
+    index = 40
+    set SOUND_TIMER, 4
+    gosub getRomNote
+    sound on, 1, note
+return
+
+playSndBet:
+    note = 0 : notes = note
+    index = betAmount + 60
+    set SOUND_TIMER, 5
+    gosub getRomNote
+    sound on, 1, note
+return
+
+playSndWin:
+    WAIT 10
+    note = 0 : notes = note
+    index = 60
+    set SOUND_TIMER, 4
+    gosub getRomNote
+    sound on, 1, note
+    WAIT 8
+    set SOUND_TIMER, 2
+    gosub getRomNote
+    sound on, 1, note
+    WAIT 4
+    index = 65
+    set SOUND_TIMER, 20
+    gosub getRomNote
+    sound on, 1, note
+    WAIT 20
+return
+
+getRomNote:
+    asm
+        LDWI    0x0900
+        ADDW    _index
+        ADDW    _index
+        STW     _notes
+        LUP     0
+        ST      _note
+        LDW     _notes
+        LUP     1
+        ST      _note + 1
+    endasm
 return
 
 ' ------------------
@@ -357,9 +448,11 @@ holdCard:
     if cardState(tempCard) &= DRAWN
         cardState(tempCard) = HELD
         at holdX,holdY : print "HELD"
+        gosub playSndHold
     elseif cardState(tempCard) &= HELD
         cardState(tempCard) = DRAWN
         at holdX,holdY : print "    "
+        gosub playSndUnHold
     endif
 return
 
@@ -459,6 +552,7 @@ updateBalance:
         endif
         winAmount = 0
         gosub displayBalance
+        gosub playSndWin
     endif
 
     if balance &< 1
@@ -511,7 +605,8 @@ displayCards:
             set FG_COLOUR, 21
             rectf 4, cardY, 31, cardY2
         endif
-        WAIT 10
+        WAIT 8
+        gosub playSndCardFlip
         set FG_COLOUR, 63
         rectf 4, cardY, 31, cardY2
         if (cardSuit(hand(0)) = HEARTS) OR (cardSuit(hand(0)) = DIAMONDS)
@@ -541,7 +636,8 @@ displayCards:
             set FG_COLOUR, 21
             rectf 35, cardY, 62, cardY2
         endif
-        WAIT 10
+        WAIT 8
+        gosub playSndCardFlip
         set FG_COLOUR, 63
         rectf 35, cardY, 62, cardY2
         if (cardSuit(hand(1)) = HEARTS) OR (cardSuit(hand(1)) = DIAMONDS)
@@ -571,7 +667,8 @@ displayCards:
             set FG_COLOUR, 21
             rectf 66, cardY, 93, cardY2
         endif
-        WAIT 10
+        WAIT 8
+        gosub playSndCardFlip
         set FG_COLOUR, 63
         rectf 66, cardY, 93, cardY2
         if (cardSuit(hand(2)) = HEARTS) OR (cardSuit(hand(2)) = DIAMONDS)
@@ -601,7 +698,8 @@ displayCards:
             set FG_COLOUR, 21
             rectf 97, cardY, 124, cardY2
         endif
-        WAIT 10
+        WAIT 8
+        gosub playSndCardFlip
         set FG_COLOUR, 63
         rectf 97, cardY, 124, cardY2
         if (cardSuit(hand(3)) = HEARTS) OR (cardSuit(hand(3)) = DIAMONDS)
@@ -631,7 +729,8 @@ displayCards:
             set FG_COLOUR, 21
             rectf 128, cardY, 155, cardY2
         endif
-        WAIT 10
+        WAIT 8
+        gosub playSndCardFlip
         set FG_COLOUR, 63
         rectf 128, cardY, 155, cardY2
         if (cardSuit(hand(4)) = HEARTS) OR (cardSuit(hand(4)) = DIAMONDS)
