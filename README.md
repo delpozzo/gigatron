@@ -3,32 +3,47 @@ A collection of software and tools I developed for the [Gigatron TTL microcomput
 
 ## Software
 ### Video Poker
-**WORK IN PROGRESS**
 
 A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gigatron.io/viewtopic.php?f=4&t=232). Requires Gigatron ROMv3 or higher.
 
 ![Screenshot](screenshots/videopoker-alpha-03.png?raw=true)
 
-**What Works:**
-- Deal cards
-- Draw cards
-- Select card
-- Hold card
-- Display winning hands and payouts
-- Bank (credits)
-- Win conditions
-  - [X] Jacks or Better
-  - [X] Two Pair
-  - [X] Three of a Kind
-  - [X] Straight
-  - [X] Flush
-  - [X] Full House
-  - [X] Four of a Kind
-  - [X] Straight Flush
-  - [X] Royal Flush
+**Gamepad Controls**
 
-**In Progress:**
-- Sounds
+- **Left, Right** - Card selection
+- **Up, Down** - Increase / Decrease bet
+- **A Button** - Hold / Unhold card
+- **B Button** - Deal / Draw
+
+**Keyboard Controls**
+- **Left, Right** - Card selection
+- **Up, Down** - Increase / Decrease bet
+- **A Button** - Hold / Unhold card
+- **B Button** - Deal / Draw
+
+**Gameplay**
+
+During the bet round, use **Up** or **Down** to increase or decrease your bet. The minimum bet is 1 credit and the maximum is 5 credits. Press **B** to deal the cards. Select cards using **Left** or **Right**. Press **A** to toggle Hold on the selected card. Press **B** to exchange unheld cards for new ones from the deck. If a winning hand results, you will be awarded the amount of credits corresponding to the illuminated win on the payout board at the top of the screen. The bet can now be increased or decreased again before the next round of cards is dealt.
+
+Winning hands and rewards are as follows:
+
+**Royal Flush:** 250 x Bet
+
+**Straight Flush:** 50 x Bet
+
+**Four of a Kind:** 25 x Bet
+
+**Full House:** 9 x Bet
+
+**Flush:** 6 x Bet
+
+**Straight:** 4 x Bet
+
+**Three of a Kind:** 3 x Bet
+
+**Two Pair:** 2 x Bet
+
+**Pair of Jacks or Better:** 1 x Bet
 
 ## Tools
 ### CustomFish
