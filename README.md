@@ -18,8 +18,8 @@ A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gig
 **Keyboard Controls**
 - **Left, Right** - Card selection
 - **Up, Down** - Increase / Decrease bet
-- **A Button** - Hold / Unhold card
-- **B Button** - Deal / Draw
+- **Backspace, Delete** - Hold / Unhold card
+- **Home** - Deal / Draw
 
 **Gameplay**
 
