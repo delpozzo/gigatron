@@ -51,3 +51,6 @@ A personalized version of the BabelFish firmware which supports Arduino Mega as 
 
 ### sendFile.py
 Modification of the original which adds support for the Arduino Mega. Sends GT1 or BASIC files to the Gigatron from a computer.
+
+### gigatron-gimp-palette.gpl
+Gigatron Color Palette for GIMP
