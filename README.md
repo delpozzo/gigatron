@@ -2,6 +2,10 @@
 A collection of software and tools I developed for the [Gigatron TTL microcomputer](https://gigatron.io).
 
 ## Software
+
++ [Video Poker](#video-poker)
++ [Fish Tank](#fish-tank)
+
 ### Video Poker
 
 A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gigatron.io/viewtopic.php?f=4&t=232). Requires Gigatron ROMv3 or higher.
@@ -45,7 +49,9 @@ Winning hands and rewards are as follows:
 
 **Pair of Jacks or Better:** 1 x Bet
 
-### Fish Tank (Work-in-Progress)
+### Fish Tank
+
+**Work-in-Progress**
 
 A fish tank simulation for Gigatron developed in [at67's gtBASIC](https://forum.gigatron.io/viewtopic.php?f=4&t=232). Requires Gigatron ROMv3 or higher.
 
