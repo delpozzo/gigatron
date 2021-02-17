@@ -1,0 +1,151 @@
+_runtimePath_ "../../at67/gbas/runtime"
+_runtimeStart_ &h7FFF
+_spriteStripeChunks_ 15, &h7000, descending
+_codeRomType_ ROMv3
+cls : mode 2
+
+'audio fix for ROMv5a
+poke &h21, peek(&h21) OR 3
+sound off
+cls
+
+' ------------------
+'   Constants
+' ------------------
+const MAXFISH = 8
+const XMAX = 140
+const XMIN = 5
+const YMAX = 90
+const YMIN = 5
+const SWIMRIGHT = 0
+const SWIMLEFT = 1
+const SWIMUP = 0
+const SWIMDOWN = 1
+const SWIMFWD = 2
+
+' ------------------
+'   Sprites
+' ------------------
+const TETRA1 = 0
+load sprite, ./graphics/cardinalTetra1.tga, TETRA1
+const TETRA2 = 1
+load sprite, ./graphics/cardinalTetra2.tga, TETRA2
+
+' ------------------
+'   Fish Arrays
+' ------------------
+dim fishSprite%(MAXFISH)
+dim fishX%(MAXFISH)
+dim fishY%(MAXFISH)
+dim fishThink1%(MAXFISH)
+dim fishThink2%(MAXFISH)
+dim fishTimer%(MAXFISH)
+
+' ------------------
+'   Other Vars
+' ------------------
+inputDevice = 255
+
+' ------------------
+'   Game Setup
+' ------------------
+gosub initTank
+
+' ------------------
+'   Main Loop
+' ------------------
+loop:
+    gosub updateFish
+    gosub drawFish
+    goto &loop
+
+' ------------------
+'   Fish
+' ------------------
+updateFish:
+    for i = 0 to MAXFISH
+        fishTimer(i) = fishTimer(i) + 1
+
+        if fishTimer(i) > 100
+            fishTimer(i) = 0
+            fishRandom = rnd(100)
+            if fishRandom < 10
+                fishThink2(i) = SWIMDOWN
+            elseif fishRandom < 20
+                fishThink2(i) = SWIMUP
+            else
+                fishThink2(i) = SWIMFWD
+            endif
+        endif
+
+        if fishThink1(i) &= SWIMRIGHT
+            if fishX(i) > XMAX
+                fishSprite(i) = TETRA2
+                fishThink1(i) = SWIMLEFT
+            else
+                fishX(i) = fishX(i) + 1
+            endif
+        elseif fishThink1(i) &= SWIMLEFT
+            if fishX(i) < XMIN
+                fishSprite(i) = TETRA1
+                fishThink1(i) = SWIMRIGHT
+            else
+                fishX(i) = fishX(i) - 1
+            endif
+        endif
+
+        if fishThink2(i) &= SWIMUP
+            if fishY(i) < YMIN
+                fishThink2(i) = SWIMDOWN
+            else
+                fishY(i) = fishY(i) - 1
+            endif
+        elseif fishThink2(i) &= SWIMDOWN
+            if fishY(i) > YMAX
+                fishThink2(i) = SWIMUP
+            else
+                fishY(i) = fishY(i) + 1
+            endif
+        endif
+    next i
+
+    wait 2
+return
+
+drawFish:
+    for i = 0 to MAXFISH
+        sprite noFlip, fishSprite(i), fishX(i), fishY(i)
+    next i
+return
+
+
+' ------------------
+'   Input
+' ------------------
+
+
+' ------------------
+'   Sound FX
+' ------------------
+
+
+' ------------------
+'   Init
+' ------------------
+initTank:
+    set BG_COLOUR, 32
+    set FG_COLOUR, 32
+    rectf 0, 0, 159, 119
+    set FG_COLOUR, 47
+    rectf 0, 105, 159, 119
+
+    for i = 0 to MAXFISH
+        fishX(i) = (rnd() % (XMAX - XMIN + 1)) + XMIN
+        fishY(i) = rnd(YMAX)
+        fishThink1(i) = rnd(2)
+        fishThink2(i) = SWIMFWD
+        fishSprite(i) = fishThink1(i)
+        fishTimer(i) = rnd(100)
+    next i
+return
+
