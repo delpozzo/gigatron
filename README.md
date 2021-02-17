@@ -45,6 +45,12 @@ Winning hands and rewards are as follows:
 
 **Pair of Jacks or Better:** 1 x Bet
 
+### Fish Tank (Work-in-Progress)
+
+A fish tank simulation for Gigatron developed in [at67's gtBASIC](https://forum.gigatron.io/viewtopic.php?f=4&t=232). Requires Gigatron ROMv3 or higher.
+
+![Screenshot](screenshots/fishtank-alpha-01.png?raw=true)
+
 ## Tools
 ### CustomFish
 A personalized version of the BabelFish firmware which supports Arduino Mega as well as breadboard buttons to load software.
