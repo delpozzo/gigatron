@@ -13,7 +13,6 @@ A 5-card poker game for Gigatron developed in [at67's gtBASIC](https://forum.gig
 ![Screenshot](screenshots/videopoker-02.png?raw=true)
 
 **Gamepad Controls**
-
 - **Left, Right** - Card selection
 - **Up, Down** - Increase / Decrease bet
 - **A Button** - Hold / Unhold card
@@ -56,6 +55,12 @@ Winning hands and rewards are as follows:
 A fish tank simulation for Gigatron developed in [at67's gtBASIC](https://forum.gigatron.io/viewtopic.php?f=4&t=232). Requires Gigatron ROMv3 or higher.
 
 ![Screenshot](screenshots/fishtank-alpha-02.png?raw=true)
+
+**Gamepad Controls**
+- **A Button** - Randomly generate new tank
+
+**Keyboard Controls**
+- **Backspace, Delete, End** - Randomly generate new tank
 
 ## Tools
 ### CustomFish
