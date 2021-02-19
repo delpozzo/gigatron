@@ -13,10 +13,8 @@ cls
 '   Constants
 ' ------------------
 const MAXFISH = 8
-const XMAX = 140
-const XMIN = 5
-const YMAX = 90
-const YMIN = 5
+const CARDINALTETRA = 0
+const HARLEQUINRASBORA = 1
 const SWIMRIGHT = 0
 const SWIMLEFT = 1
 const SWIMUP = 0
@@ -30,13 +28,22 @@ const TETRA1 = 0
 load sprite, ./graphics/cardinalTetra1.tga, TETRA1
 const TETRA2 = 1
 load sprite, ./graphics/cardinalTetra2.tga, TETRA2
+const RASBORA1 = 2
+load sprite, ./graphics/harlequinRasbora1.tga, RASBORA1
+const RASBORA2 = 3
+load sprite, ./graphics/harlequinRasbora2.tga, RASBORA2
 
 ' ------------------
 '   Fish Arrays
 ' ------------------
 dim fishSprite%(MAXFISH)
+dim fishType%(MAXFISH)
 dim fishX%(MAXFISH)
 dim fishY%(MAXFISH)
+dim fishXmax%(MAXFISH)
+dim fishXmin%(MAXFISH)
+dim fishYmax%(MAXFISH)
+dim fishYmin%(MAXFISH)
 dim fishThink1%(MAXFISH)
 dim fishThink2%(MAXFISH)
 dim fishTimer%(MAXFISH)
@@ -57,6 +64,7 @@ gosub initTank
 loop:
     gosub updateFish
     gosub drawFish
+    gosub checkInput
     goto &loop
 
 ' ------------------
@@ -79,15 +87,15 @@ updateFish:
         endif
 
         if fishThink1(i) &= SWIMRIGHT
-            if fishX(i) > XMAX
-                fishSprite(i) = TETRA2
+            if fishX(i) > fishXmax(i)
+                fishSprite(i) = fishSprite(i) + 1
                 fishThink1(i) = SWIMLEFT
             else
                 fishX(i) = fishX(i) + 1
             endif
         elseif fishThink1(i) &= SWIMLEFT
-            if fishX(i) < XMIN
-                fishSprite(i) = TETRA1
+            if fishX(i) < fishXmin(i)
+                fishSprite(i) = fishSprite(i) - 1
                 fishThink1(i) = SWIMRIGHT
             else
                 fishX(i) = fishX(i) - 1
@@ -95,13 +103,13 @@ updateFish:
         endif
 
         if fishThink2(i) &= SWIMUP
-            if fishY(i) < YMIN
+            if fishY(i) < fishYmin(i)
                 fishThink2(i) = SWIMDOWN
             else
                 fishY(i) = fishY(i) - 1
             endif
         elseif fishThink2(i) &= SWIMDOWN
-            if fishY(i) > YMAX
+            if fishY(i) > fishYmax(i)
                 fishThink2(i) = SWIMUP
             else
                 fishY(i) = fishY(i) + 1
@@ -122,7 +130,13 @@ return
 ' ------------------
 '   Input
 ' ------------------
+checkInput:
+    inputDevice = get("BUTTON_STATE")
 
+    if inputDevice = 127
+        gosub initTank
+    endif
+return
 
 ' ------------------
 '   Sound FX
@@ -140,12 +154,30 @@ initTank:
     rectf 0, 105, 159, 119
 
     for i = 0 to MAXFISH
-        fishX(i) = (rnd() % (XMAX - XMIN + 1)) + XMIN
-        fishY(i) = rnd(YMAX)
-        fishThink1(i) = rnd(2)
-        fishThink2(i) = SWIMFWD
-        fishSprite(i) = fishThink1(i)
+        fishType(i) = rnd(2)
         fishTimer(i) = rnd(100)
+
+        if fishType(i) &= CARDINALTETRA
+            fishXmax(i) = 140
+            fishXmin(i) = 3
+            fishYmax(i) = 90
+            fishYmin(i) = 5
+            fishX(i) = rnd(135)
+            fishY(i) = rnd(90)
+            fishThink1(i) = rnd(2)
+            fishThink2(i) = SWIMFWD
+            fishSprite(i) = TETRA1 + fishThink1(i)
+        elseif fishType(i) &= HARLEQUINRASBORA
+            fishXmax(i) = 135
+            fishXmin(i) = 3
+            fishYmax(i) = 90
+            fishYmin(i) = 5
+            fishX(i) = rnd(130)
+            fishY(i) = rnd(90)
+            fishThink1(i) = rnd(2)
+            fishThink2(i) = SWIMFWD
+            fishSprite(i) = RASBORA1 + fishThink1(i)
+        endif
     next i
 return
 
