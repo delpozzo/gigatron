@@ -150,8 +150,12 @@ initTank:
     set BG_COLOUR, 32
     set FG_COLOUR, 32
     rectf 0, 0, 159, 119
-    set FG_COLOUR, 47
-    rectf 0, 105, 159, 119
+
+    for x = 0 to 159
+        for y = 110 to 119 
+            pset x, y, rnd(0) AND &h95
+        next y
+    next x
 
     for i = 0 to MAXFISH
         fishType(i) = rnd(2)
@@ -160,7 +164,7 @@ initTank:
         if fishType(i) &= CARDINALTETRA
             fishXmax(i) = 140
             fishXmin(i) = 3
-            fishYmax(i) = 90
+            fishYmax(i) = 95
             fishYmin(i) = 5
             fishX(i) = rnd(135)
             fishY(i) = rnd(90)
@@ -170,7 +174,7 @@ initTank:
         elseif fishType(i) &= HARLEQUINRASBORA
             fishXmax(i) = 135
             fishXmin(i) = 3
-            fishYmax(i) = 90
+            fishYmax(i) = 95
             fishYmin(i) = 5
             fishX(i) = rnd(130)
             fishY(i) = rnd(90)

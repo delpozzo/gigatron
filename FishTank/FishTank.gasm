@@ -70,10 +70,12 @@ _endif_0x0578                     EQU                               0x0487
 _next_0x0596                      EQU                               0x04a5
 _endif_0x05fb                     EQU                               0x04ec
 _page_0x0500                      EQU                               0x0500
-_next_0x0638                      EQU                               0x0538
+_next_0x061f                      EQU                               0x051f
+_next_0x0623                      EQU                               0x0523
+_next_0x0661                      EQU                               0x0559
 _page_0x0600                      EQU                               0x0600
-_elseif_0x0765                    EQU                               0x060d
-_endif_0x0857                     EQU                               0x06ab
+_elseif_0x078e                    EQU                               0x0630
+_endif_0x0880                     EQU                               0x06ce
 
 ; Constants
 _MAXFISH                          EQU                               0x0008
@@ -93,6 +95,8 @@ _RASBORA2                         EQU                               0x0003
 _inputDevice                      EQU                               0x0030
 _i                                EQU                               0x0032
 _fishRandom                       EQU                               0x0034
+_x                                EQU                               0x0036
+_y                                EQU                               0x0038
 
 ; Local Variables
 
@@ -526,23 +530,29 @@ _page_0x0500                      LDLW                              0xFE
                                   STW                               drawRectF_y2
                                   DrawRectF                                                     ; rectf 0, 0, 159, 119
 
-                                  LDI                               47
-                                  ST                                fgbgColour + 1              ; set FG_COLOUR, 47
-
                                   LDI                               0
-                                  STW                               drawRectF_x1
-                                  LDI                               105
-                                  STW                               drawRectF_y1
-                                  LDI                               159
-                                  STW                               drawRectF_x2
-                                  LDI                               119
-                                  STW                               drawRectF_y2
-                                  DrawRectF                                                     ; rectf 0, 105, 159, 119
+                                  STW                               _x                          ; for x = 0 to 159
+
+_next_0x061f                      LDI                               110
+                                  STW                               _y                          ; for y = 110 to 119
+
+_next_0x0623                      LDW                               _x
+                                  ST                                drawPixel_xy
+                                  LDW                               _y
+                                  ST                                drawPixel_xy + 1
+                                  Rand                              
+                                  ANDI                              0xff95
+                                  ST                                fgbgColour + 1
+                                  DrawPixel                                                     ; pset x, y, rnd(0) AND &h95
+
+                                  ForNextFarInc                     _y _next_0x0623 119         ; next y
+
+                                  ForNextFarInc                     _x _next_0x061f 159         ; next x
 
                                   LDI                               0
                                   STW                               _i                          ; for i = 0 to MAXFISH
 
-_next_0x0638                      LDI                               0x02
+_next_0x0661                      LDI                               0x02
                                   RandMod                           
                                   STW                               memValue
                                   LDWI                              0x7dbd
@@ -563,7 +573,7 @@ _next_0x0638                      LDI                               0x02
                                   LDWI                              0x7dbd
                                   ADDW                              _i
                                   PEEK                              
-                                  JumpEQ                            _elseif_0x0765 17           ; if fishType(i) &= CARDINALTETRA
+                                  JumpEQ                            _elseif_0x078e 17           ; if fishType(i) &= CARDINALTETRA
 
                                   LDWI                              0x7da2
                                   ADDW                              _i
@@ -580,8 +590,8 @@ _next_0x0638                      LDI                               0x02
                                   LDWI                              0x7cbd
                                   ADDW                              _i
                                   STW                               memAddr
-                                  LDI                               90
-                                  POKE                              memAddr                     ; fishYmax(i) = 90
+                                  LDI                               95
+                                  POKE                              memAddr                     ; fishYmax(i) = 95
 
                                   LDWI                              0x7cb4
                                   ADDW                              _i
@@ -610,6 +620,10 @@ _next_0x0638                      LDI                               0x02
                                   LDI                               0x02
                                   RandMod                           
                                   STW                               memValue
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x0600
+                                  CALL                              giga_vAC
+_page_0x0600                      LDLW                              0xFE
                                   LDWI                              0x7cab
                                   ADDW                              _i
                                   STW                               memAddr
@@ -628,21 +642,17 @@ _next_0x0638                      LDI                               0x02
                                   STW                               memValue
                                   LDWI                              0x7dc6
                                   ADDW                              _i
-                                  STLW                              0xFE
-                                  LDWI                              _page_0x0600
-                                  CALL                              giga_vAC
-_page_0x0600                      LDLW                              0xFE
                                   STW                               memAddr
                                   LDW                               memValue
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x0857
+                                  LDWI                              _endif_0x0880
                                   CALL                              giga_vAC                    ; fishSprite(i) = TETRA1 + fishThink1(i)
 
-_elseif_0x0765                    LDWI                              0x7dbd
+_elseif_0x078e                    LDWI                              0x7dbd
                                   ADDW                              _i
                                   PEEK                              
                                   XORI                              1
-                                  JumpEQ                            _endif_0x0857 18            ; elseif fishType(i) &= HARLEQUINRASBORA
+                                  JumpEQ                            _endif_0x0880 18            ; elseif fishType(i) &= HARLEQUINRASBORA
 
                                   LDWI                              0x7da2
                                   ADDW                              _i
@@ -659,8 +669,8 @@ _elseif_0x0765                    LDWI                              0x7dbd
                                   LDWI                              0x7cbd
                                   ADDW                              _i
                                   STW                               memAddr
-                                  LDI                               90
-                                  POKE                              memAddr                     ; fishYmax(i) = 90
+                                  LDI                               95
+                                  POKE                              memAddr                     ; fishYmax(i) = 95
 
                                   LDWI                              0x7cb4
                                   ADDW                              _i
@@ -712,7 +722,7 @@ _elseif_0x0765                    LDWI                              0x7dbd
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishSprite(i) = RASBORA1 + fishThink1(i)
 
-_endif_0x0857                     ForNextFarInc                     _i _next_0x0638 8           ; next i
+_endif_0x0880                     ForNextFarInc                     _i _next_0x0661 8           ; next i
 
                                   Return                                                        ; return
 
@@ -727,21 +737,23 @@ _endif_0x0857                     ForNextFarInc                     _i _next_0x0
 ;****************************************************************************************************************************************
 
 romCheck                          EQU     0x77ac
-convertEqOp                       EQU     0x74a7
-convertLtOp                       EQU     0x73a9
-convertGtOp                       EQU     0x73a0
+convertEqOp                       EQU     0x73a9
+convertLtOp                       EQU     0x73a0
+convertGtOp                       EQU     0x72ba
 divide16bit                       EQU     0x6fa8
+rand16bit                         EQU     0x72b2
 randMod16bit                      EQU     0x75b0
 scanlineMode                      EQU     0x7aa1
 waitVBlank                        EQU     0x77a0
 waitVBlanks                       EQU     0x74b0
-resetVideoFlags                   EQU     0x75a4
+resetVideoFlags                   EQU     0x74a4
 initClearFuncs                    EQU     0x73b2
 clearVertBlinds                   EQU     0x6ec9
+drawPixel                         EQU     0x76a0
 drawHLine                         EQU     0x79a2
 drawRectF                         EQU     0x78a7
 drawSprite_                       EQU     0x6ea1
-drawSprite                        EQU     0x76a0
+drawSprite                        EQU     0x75a3
 soundAllOff                       EQU     0x76ad
 convertEqOpAddr                   EQU     0x00c0
 convertNeOpAddr                   EQU     0x00c2
@@ -812,7 +824,6 @@ convertGt_1         LDI     1
                     RET
 
 
-
 ; do *NOT* use register4 to register7 during time slicing
 mathX               EQU     register8
 mathY               EQU     register9
@@ -825,6 +836,13 @@ mathShift           EQU     register15
 mathBase            EQU     register10
 mathPow             EQU     register11
 mathResult          EQU     register14
+
+
+rand16bit           LDWI    SYS_Random_34
+                    STW     giga_sysFn
+                    SYS     34
+                    RET
+
 
 
                     ; accumulator:mathRem = mathX / mathY, (results 16bit)
@@ -1072,6 +1090,16 @@ clearVB_loopy       LDI     giga_xres
                     SUBI    giga_yres / 2 + 8
                     BLT     clearVB_loopy
                     POP
+                    RET
+
+
+drawPixel           LD      drawPixel_xy + 1                ; poke peek(256 + 2*y)*256 + x, fg_colour
+                    LSLW
+                    INC     giga_vAC + 1
+                    PEEK
+                    ST      drawPixel_xy + 1
+                    LD      fgbgColour + 1
+                    POKE    drawPixel_xy
                     RET
 
 
