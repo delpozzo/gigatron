@@ -51,6 +51,7 @@ dim fishTimer%(MAXFISH)
 ' ------------------
 '   Other Vars
 ' ------------------
+dim tankGravel%(6) = 0, 6, 22, 10, 47, 42
 inputDevice = 255
 
 ' ------------------
@@ -153,7 +154,7 @@ initTank:
 
     for x = 0 to 159
         for y = 110 to 119 
-            pset x, y, rnd(0) AND &h95
+            pset x, y, tankGravel(rnd(0) AND 6)
         next y
     next x
 

@@ -72,10 +72,10 @@ _endif_0x05fb                     EQU                               0x04ec
 _page_0x0500                      EQU                               0x0500
 _next_0x061f                      EQU                               0x051f
 _next_0x0623                      EQU                               0x0523
-_next_0x0661                      EQU                               0x0559
+_next_0x066d                      EQU                               0x0561
 _page_0x0600                      EQU                               0x0600
-_elseif_0x078e                    EQU                               0x0630
-_endif_0x0880                     EQU                               0x06ce
+_elseif_0x079a                    EQU                               0x0639
+_endif_0x088c                     EQU                               0x06d7
 
 ; Constants
 _MAXFISH                          EQU                               0x0008
@@ -112,6 +112,8 @@ _fishYmin_array                   EQU                               0x7cb4
 _fishThink1_array                 EQU                               0x7cab
 _fishThink2_array                 EQU                               0x7ca2
 _fishTimer_array                  EQU                               0x7bc6
+_tankGravel_array                 EQU                               0x7bbf
+_tankGravel_array                 DB                                0x00 0x06 0x16 0x0a 0x2f 0x2a 0x2a 
 
 ; Strings
 
@@ -164,16 +166,16 @@ def_sprites_0x70c3                DB                                32 32 32 32 
 ; Define Fonts
 
 ; Lookup Tables
-_spriteLut_0x7bb8                 EQU                               0x7bb8
-_spriteLut_0x7bb8                 DW                                0x7dcf 0x0000 0x7ccf 0x0006 0x7bcf 0x000c 0x0000
-_spriteLut_0x7baa                 EQU                               0x7baa
-_spriteLut_0x7baa                 DW                                0x7acf 0x0000 0x79cf 0x0006 0x78cf 0x000c 0x0000
+_spriteLut_0x7bb1                 EQU                               0x7bb1
+_spriteLut_0x7bb1                 DW                                0x7dcf 0x0000 0x7ccf 0x0006 0x7bcf 0x000c 0x0000
+_spriteLut_0x7ba3                 EQU                               0x7ba3
+_spriteLut_0x7ba3                 DW                                0x7acf 0x0000 0x79cf 0x0006 0x78cf 0x000c 0x0000
 _spriteLut_0x7abd                 EQU                               0x7abd
 _spriteLut_0x7abd                 DW                                0x77c3 0x0000 0x76c3 0x0006 0x75c3 0x000c 0x74c3 0x0012 0x0000
 _spriteLut_0x7aab                 EQU                               0x7aab
 _spriteLut_0x7aab                 DW                                0x73c3 0x0000 0x72c3 0x0006 0x71c3 0x000c 0x70c3 0x0012 0x0000
-_spritesLut_                      EQU                               0x7ba2
-_spritesLut_                      DW                                0x7bb8 0x7baa 0x7abd 0x7aab 
+_spritesLut_                      EQU                               0x7aa3
+_spritesLut_                      DW                                0x7bb1 0x7ba3 0x7abd 0x7aab 
 
 ; Code
 _entryPoint_                      LDI                               0x28
@@ -541,9 +543,13 @@ _next_0x0623                      LDW                               _x
                                   LDW                               _y
                                   ST                                drawPixel_xy + 1
                                   Rand                              
-                                  ANDI                              0xff95
+                                  ANDI                              0x0006
+                                  STW                               memIndex0
+                                  LDWI                              0x7bbf
+                                  ADDW                              memIndex0
+                                  PEEK                              
                                   ST                                fgbgColour + 1
-                                  DrawPixel                                                     ; pset x, y, rnd(0) AND &h95
+                                  DrawPixel                                                     ; pset x, y, tankGravel(rnd(0) AND 6)
 
                                   ForNextFarInc                     _y _next_0x0623 119         ; next y
 
@@ -552,7 +558,7 @@ _next_0x0623                      LDW                               _x
                                   LDI                               0
                                   STW                               _i                          ; for i = 0 to MAXFISH
 
-_next_0x0661                      LDI                               0x02
+_next_0x066d                      LDI                               0x02
                                   RandMod                           
                                   STW                               memValue
                                   LDWI                              0x7dbd
@@ -573,7 +579,7 @@ _next_0x0661                      LDI                               0x02
                                   LDWI                              0x7dbd
                                   ADDW                              _i
                                   PEEK                              
-                                  JumpEQ                            _elseif_0x078e 17           ; if fishType(i) &= CARDINALTETRA
+                                  JumpEQ                            _elseif_0x079a 17           ; if fishType(i) &= CARDINALTETRA
 
                                   LDWI                              0x7da2
                                   ADDW                              _i
@@ -618,12 +624,12 @@ _next_0x0661                      LDI                               0x02
                                   POKE                              memAddr                     ; fishY(i) = rnd(90)
 
                                   LDI                               0x02
-                                  RandMod                           
-                                  STW                               memValue
                                   STLW                              0xFE
                                   LDWI                              _page_0x0600
                                   CALL                              giga_vAC
 _page_0x0600                      LDLW                              0xFE
+                                  RandMod                           
+                                  STW                               memValue
                                   LDWI                              0x7cab
                                   ADDW                              _i
                                   STW                               memAddr
@@ -645,14 +651,14 @@ _page_0x0600                      LDLW                              0xFE
                                   STW                               memAddr
                                   LDW                               memValue
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x0880
+                                  LDWI                              _endif_0x088c
                                   CALL                              giga_vAC                    ; fishSprite(i) = TETRA1 + fishThink1(i)
 
-_elseif_0x078e                    LDWI                              0x7dbd
+_elseif_0x079a                    LDWI                              0x7dbd
                                   ADDW                              _i
                                   PEEK                              
                                   XORI                              1
-                                  JumpEQ                            _endif_0x0880 18            ; elseif fishType(i) &= HARLEQUINRASBORA
+                                  JumpEQ                            _endif_0x088c 18            ; elseif fishType(i) &= HARLEQUINRASBORA
 
                                   LDWI                              0x7da2
                                   ADDW                              _i
@@ -722,7 +728,7 @@ _elseif_0x078e                    LDWI                              0x7dbd
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishSprite(i) = RASBORA1 + fishThink1(i)
 
-_endif_0x0880                     ForNextFarInc                     _i _next_0x0661 8           ; next i
+_endif_0x088c                     ForNextFarInc                     _i _next_0x066d 8           ; next i
 
                                   Return                                                        ; return
 
@@ -737,13 +743,13 @@ _endif_0x0880                     ForNextFarInc                     _i _next_0x0
 ;****************************************************************************************************************************************
 
 romCheck                          EQU     0x77ac
-convertEqOp                       EQU     0x73a9
-convertLtOp                       EQU     0x73a0
-convertGtOp                       EQU     0x72ba
+convertEqOp                       EQU     0x72ba
+convertLtOp                       EQU     0x72b1
+convertGtOp                       EQU     0x72a8
 divide16bit                       EQU     0x6fa8
-rand16bit                         EQU     0x72b2
+rand16bit                         EQU     0x73a0
 randMod16bit                      EQU     0x75b0
-scanlineMode                      EQU     0x7aa1
+scanlineMode                      EQU     0x73a8
 waitVBlank                        EQU     0x77a0
 waitVBlanks                       EQU     0x74b0
 resetVideoFlags                   EQU     0x74a4
