@@ -32,6 +32,10 @@ const RASBORA1 = 2
 load sprite, ./graphics/harlequinRasbora1.tga, RASBORA1
 const RASBORA2 = 3
 load sprite, ./graphics/harlequinRasbora2.tga, RASBORA2
+'const MOLLY1 = 4
+'load sprite, ./graphics/molly1.tga, MOLLY1
+'const MOLLY2 = 5
+'load sprite, ./graphics/molly2.tga, MOLLY2
 
 ' ------------------
 '   Fish Arrays
