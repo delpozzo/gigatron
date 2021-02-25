@@ -1,5 +1,4 @@
 _runtimePath_ "../../at67/gbas/runtime"
-'_runtimeStart_ &h7FFF
 _codeRomType_ ROMv3
 cls : mode 2
 
@@ -12,8 +11,8 @@ cls
 '   Constants
 ' ------------------
 const MAXFISH = 8
-const CARDINALTETRA = 0
-const HARLEQUINRASBORA = 1
+const TETRA = 0
+const RASBORA = 1
 const MOLLY = 2
 const SWIMRIGHT = 0
 const SWIMLEFT = 1
@@ -40,8 +39,8 @@ load sprite, ./graphics/molly2.tga, MOLLY2
 ' ------------------
 '   Fish Arrays
 ' ------------------
+dim fishType%(MAXFISH) = TETRA, TETRA, TETRA, TETRA, TETRA, RASBORA, RASBORA, MOLLY
 dim fishSprite%(MAXFISH)
-dim fishType%(MAXFISH)
 dim fishX%(MAXFISH)
 dim fishY%(MAXFISH)
 dim fishXmax%(MAXFISH)
@@ -62,6 +61,7 @@ inputDevice = 255
 '   Game Setup
 ' ------------------
 gosub initTank
+gosub initFish
 
 ' ------------------
 '   Main Loop
@@ -76,7 +76,7 @@ loop:
 '   Fish
 ' ------------------
 updateFish:
-    for i = 0 to MAXFISH
+    for i = 0 to (MAXFISH -1)
         fishTimer(i) = fishTimer(i) + 1
 
         if fishTimer(i) > 100
@@ -126,11 +126,16 @@ updateFish:
 return
 
 drawFish:
-    for i = 0 to MAXFISH
+    for i = 0 to (MAXFISH -1)
         sprite noFlip, fishSprite(i), fishX(i), fishY(i)
     next i
 return
 
+randomFish:
+    for i = 0 to (MAXFISH -1)
+        fishType(i) = rnd(3)
+    next i
+return
 
 ' ------------------
 '   Input
@@ -140,6 +145,8 @@ checkInput:
 
     if inputDevice = 127
         gosub initTank
+        gosub randomFish
+        gosub initFish
     endif
 return
 
@@ -161,12 +168,13 @@ initTank:
             pset x, y, tankGravel(rnd(0) AND 7)
         next y
     next x
+return
 
-    for i = 0 to MAXFISH
-        fishType(i) = rnd(3)
+initFish:
+    for i = 0 to (MAXFISH -1)
         fishTimer(i) = rnd(100)
 
-        if fishType(i) &= CARDINALTETRA
+        if fishType(i) &= TETRA
             fishXmax(i) = 140
             fishXmin(i) = 3
             fishYmax(i) = 95
@@ -176,7 +184,7 @@ initTank:
             fishThink1(i) = rnd(2)
             fishThink2(i) = SWIMFWD
             fishSprite(i) = TETRA1 + fishThink1(i)
-        elseif fishType(i) &= HARLEQUINRASBORA
+        elseif fishType(i) &= RASBORA
             fishXmax(i) = 135
             fishXmin(i) = 3
             fishYmax(i) = 95
