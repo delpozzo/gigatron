@@ -1,6 +1,5 @@
 _runtimePath_ "../../at67/gbas/runtime"
-_runtimeStart_ &h7FFF
-_spriteStripeChunks_ 15, &h7000, descending
+'_runtimeStart_ &h7FFF
 _codeRomType_ ROMv3
 cls : mode 2
 
@@ -15,6 +14,7 @@ cls
 const MAXFISH = 8
 const CARDINALTETRA = 0
 const HARLEQUINRASBORA = 1
+const MOLLY = 2
 const SWIMRIGHT = 0
 const SWIMLEFT = 1
 const SWIMUP = 0
@@ -32,10 +32,10 @@ const RASBORA1 = 2
 load sprite, ./graphics/harlequinRasbora1.tga, RASBORA1
 const RASBORA2 = 3
 load sprite, ./graphics/harlequinRasbora2.tga, RASBORA2
-'const MOLLY1 = 4
-'load sprite, ./graphics/molly1.tga, MOLLY1
-'const MOLLY2 = 5
-'load sprite, ./graphics/molly2.tga, MOLLY2
+const MOLLY1 = 4
+load sprite, ./graphics/molly1.tga, MOLLY1
+const MOLLY2 = 5
+load sprite, ./graphics/molly2.tga, MOLLY2
 
 ' ------------------
 '   Fish Arrays
@@ -55,7 +55,7 @@ dim fishTimer%(MAXFISH)
 ' ------------------
 '   Other Vars
 ' ------------------
-dim tankGravel%(6) = 0, 6, 22, 10, 47, 42
+dim tankGravel%(7) = 0, 6, 22, 10, 47, 42, 47
 inputDevice = 255
 
 ' ------------------
@@ -158,12 +158,12 @@ initTank:
 
     for x = 0 to 159
         for y = 110 to 119 
-            pset x, y, tankGravel(rnd(0) AND 6)
+            pset x, y, tankGravel(rnd(0) AND 7)
         next y
     next x
 
     for i = 0 to MAXFISH
-        fishType(i) = rnd(2)
+        fishType(i) = rnd(3)
         fishTimer(i) = rnd(100)
 
         if fishType(i) &= CARDINALTETRA
@@ -186,6 +186,16 @@ initTank:
             fishThink1(i) = rnd(2)
             fishThink2(i) = SWIMFWD
             fishSprite(i) = RASBORA1 + fishThink1(i)
+        elseif fishType(i) &= MOLLY
+            fishXmax(i) = 135
+            fishXmin(i) = 3
+            fishYmax(i) = 95
+            fishYmin(i) = 5
+            fishX(i) = rnd(130)
+            fishY(i) = rnd(90)
+            fishThink1(i) = rnd(2)
+            fishThink2(i) = SWIMFWD
+            fishSprite(i) = MOLLY1 + fishThink1(i)
         endif
     next i
 return
