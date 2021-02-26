@@ -57,10 +57,12 @@ A fish tank simulation for Gigatron developed in [at67's gtBASIC](https://forum.
 ![Screenshot](screenshots/fishtank-alpha-03.png?raw=true)
 
 **Gamepad Controls**
-- **A Button** - Randomly generate new tank
+- **A Button** - Spawn random fish
+- **B Button** - Change gravel mixture
 
 **Keyboard Controls**
-- **Backspace, Delete, End** - Randomly generate new tank
+- **Backspace, Delete, End** - Spawn random fish
+- **Home, PrtScn/Insert/SysReq** - Change gravel mixture
 
 ## Tools
 ### CustomFish
