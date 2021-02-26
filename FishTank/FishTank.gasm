@@ -46,43 +46,53 @@ textWorkArea                      EQU                               0x7fa0
 
 ; Labels
 _entryPoint_                      EQU                               0x0200
-_loop                             EQU                               0x0256
-_updateFish                       EQU                               0x0267
-_drawFish                         EQU                               0x04a4
-_randomFish                       EQU                               0x04d8
-_checkInput                       EQU                               0x0512
-_initTank                         EQU                               0x0536
-_initFish                         EQU                               0x0598
-_next_0x0265                      EQU                               0x026c
-_elseif_0x02f0                    EQU                               0x02c7
-_else_0x031a                      EQU                               0x02e5
-_endif_0x032d                     EQU                               0x02f0
+_loop                             EQU                               0x025f
+_updateFish                       EQU                               0x0270
+_drawFish                         EQU                               0x04ae
+_randomFish                       EQU                               0x04e2
+_setGravelMix                     EQU                               0x051d
+_drawGravel                       EQU                               0x0597
+_drawTank                         EQU                               0x05e1
+_checkInput                       EQU                               0x060b
+_initFish                         EQU                               0x065f
+_next_0x026e                      EQU                               0x0275
+_elseif_0x02f9                    EQU                               0x02d0
+_else_0x0323                      EQU                               0x02ee
 _page_0x0300                      EQU                               0x0300
-_else_0x03ac                      EQU                               0x0350
-_endif_0x03cf                     EQU                               0x0365
-_elseif_0x03d4                    EQU                               0x036a
-_else_0x0455                      EQU                               0x03bd
-_endif_0x0478                     EQU                               0x03d2
+_endif_0x0336                     EQU                               0x0308
+_else_0x03b5                      EQU                               0x0359
+_endif_0x03d8                     EQU                               0x036e
+_elseif_0x03dd                    EQU                               0x0373
+_else_0x045e                      EQU                               0x03c6
+_endif_0x0481                     EQU                               0x03db
 _page_0x0400                      EQU                               0x0400
-_else_0x04d4                      EQU                               0x041e
-_endif_0x04f7                     EQU                               0x0433
-_elseif_0x04fc                    EQU                               0x0438
-_else_0x055a                      EQU                               0x0476
-_endif_0x057d                     EQU                               0x048b
-_next_0x059b                      EQU                               0x04a9
-_next_0x05e7                      EQU                               0x04dd
+_else_0x04dd                      EQU                               0x0428
+_endif_0x0500                     EQU                               0x043d
+_elseif_0x0505                    EQU                               0x0442
+_else_0x0563                      EQU                               0x0480
+_endif_0x0586                     EQU                               0x0495
+_next_0x05a4                      EQU                               0x04b3
+_next_0x05f0                      EQU                               0x04e7
 _page_0x0500                      EQU                               0x0500
-_endif_0x063b                     EQU                               0x0534
-_next_0x065f                      EQU                               0x0558
-_next_0x0663                      EQU                               0x055c
-_next_0x06b0                      EQU                               0x059d
+_next_0x0621                      EQU                               0x0522
+_elseif_0x0651                    EQU                               0x0544
+_elseif_0x0683                    EQU                               0x0568
+_endif_0x06b0                     EQU                               0x0587
+_next_0x06ca                      EQU                               0x05a1
+_next_0x06ce                      EQU                               0x05a5
 _page_0x0600                      EQU                               0x0600
-_elseif_0x07c1                    EQU                               0x065c
+_elseif_0x0763                    EQU                               0x0632
+_endif_0x0793                     EQU                               0x0658
+_endif_0x0798                     EQU                               0x065d
+_next_0x079f                      EQU                               0x0664
 _page_0x08a0                      EQU                               0x08a0
-_elseif_0x08b8                    EQU                               0x08a9
+_elseif_0x08b0                    EQU                               0x08c5
 _page_0x09a0                      EQU                               0x09a0
 _page_0x0aa0                      EQU                               0x0aa0
-_endif_0x09aa                     EQU                               0x0aa2
+_elseif_0x09a7                    EQU                               0x0abe
+_page_0x0ba0                      EQU                               0x0ba0
+_page_0x0ca0                      EQU                               0x0ca0
+_endif_0x0a99                     EQU                               0x0cb1
 
 ; Constants
 _MAXFISH                          EQU                               0x0008
@@ -94,6 +104,9 @@ _SWIMLEFT                         EQU                               0x0001
 _SWIMUP                           EQU                               0x0000
 _SWIMDOWN                         EQU                               0x0001
 _SWIMFWD                          EQU                               0x0002
+_MIX1                             EQU                               0x0000
+_MIX2                             EQU                               0x0001
+_MIX3                             EQU                               0x0002
 _TETRA1                           EQU                               0x0000
 _TETRA2                           EQU                               0x0001
 _RASBORA1                         EQU                               0x0002
@@ -102,11 +115,12 @@ _MOLLY1                           EQU                               0x0004
 _MOLLY2                           EQU                               0x0005
 
 ; Global Variables
-_inputDevice                      EQU                               0x0030
-_i                                EQU                               0x0032
-_fishRandom                       EQU                               0x0034
-_x                                EQU                               0x0036
-_y                                EQU                               0x0038
+_gravelType                       EQU                               0x0030
+_inputDevice                      EQU                               0x0032
+_i                                EQU                               0x0034
+_fishRandom                       EQU                               0x0036
+_x                                EQU                               0x0038
+_y                                EQU                               0x003a
 
 ; Local Variables
 
@@ -123,8 +137,13 @@ _fishYmin_array                   EQU                               0x7cb4
 _fishThink1_array                 EQU                               0x7cab
 _fishThink2_array                 EQU                               0x7ca2
 _fishTimer_array                  EQU                               0x7bc6
-_tankGravel_array                 EQU                               0x7bbe
-_tankGravel_array                 DB                                0x00 0x06 0x16 0x0a 0x2f 0x2a 0x2f 0x2f 
+_gravelMix1_array                 EQU                               0x7bbe
+_gravelMix1_array                 DB                                0x00 0x06 0x16 0x0a 0x2f 0x2a 0x2f 0x2f 
+_gravelMix2_array                 EQU                               0x7bb6
+_gravelMix2_array                 DB                                0x00 0x06 0x16 0x0a 0x2f 0x2a 0x03 0x03 
+_gravelMix3_array                 EQU                               0x7bae
+_gravelMix3_array                 DB                                0x00 0x06 0x16 0x0a 0x2f 0x31 0x21 0x21 
+_tankGravel_array                 EQU                               0x7ba6
 
 ; Strings
 
@@ -193,20 +212,20 @@ def_sprites_0x68bd                DB                                32 32 32 32 
 ; Define Fonts
 
 ; Lookup Tables
-_spriteLut_0x7bb0                 EQU                               0x7bb0
-_spriteLut_0x7bb0                 DW                                0x7dcf 0x0000 0x7ccf 0x0006 0x7bcf 0x000c 0x0000
-_spriteLut_0x7ba2                 EQU                               0x7ba2
-_spriteLut_0x7ba2                 DW                                0x7acf 0x0000 0x79cf 0x0006 0x78cf 0x000c 0x0000
-_spriteLut_0x7abd                 EQU                               0x7abd
-_spriteLut_0x7abd                 DW                                0x77c3 0x0000 0x76c3 0x0006 0x75c3 0x000c 0x74c3 0x0012 0x0000
-_spriteLut_0x7aab                 EQU                               0x7aab
-_spriteLut_0x7aab                 DW                                0x73c3 0x0000 0x72c3 0x0006 0x71c3 0x000c 0x70c3 0x0012 0x0000
+_spriteLut_0x7ac1                 EQU                               0x7ac1
+_spriteLut_0x7ac1                 DW                                0x7dcf 0x0000 0x7ccf 0x0006 0x7bcf 0x000c 0x0000
+_spriteLut_0x7ab3                 EQU                               0x7ab3
+_spriteLut_0x7ab3                 DW                                0x7acf 0x0000 0x79cf 0x0006 0x78cf 0x000c 0x0000
+_spriteLut_0x7aa1                 EQU                               0x7aa1
+_spriteLut_0x7aa1                 DW                                0x77c3 0x0000 0x76c3 0x0006 0x75c3 0x000c 0x74c3 0x0012 0x0000
 _spriteLut_0x79bd                 EQU                               0x79bd
-_spriteLut_0x79bd                 DW                                0x6fbd 0x0000 0x6ebd 0x0006 0x6dbd 0x000c 0x6cbd 0x0012 0x0000
+_spriteLut_0x79bd                 DW                                0x73c3 0x0000 0x72c3 0x0006 0x71c3 0x000c 0x70c3 0x0012 0x0000
 _spriteLut_0x79ab                 EQU                               0x79ab
-_spriteLut_0x79ab                 DW                                0x6bbd 0x0000 0x6abd 0x0006 0x69bd 0x000c 0x68bd 0x0012 0x0000
-_spritesLut_                      EQU                               0x78c3
-_spritesLut_                      DW                                0x7bb0 0x7ba2 0x7abd 0x7aab 0x79bd 0x79ab 
+_spriteLut_0x79ab                 DW                                0x6fbd 0x0000 0x6ebd 0x0006 0x6dbd 0x000c 0x6cbd 0x0012 0x0000
+_spriteLut_0x78bd                 EQU                               0x78bd
+_spriteLut_0x78bd                 DW                                0x6bbd 0x0000 0x6abd 0x0006 0x69bd 0x000c 0x68bd 0x0012 0x0000
+_spritesLut_                      EQU                               0x78b1
+_spritesLut_                      DW                                0x7ac1 0x7ab3 0x7aa1 0x79bd 0x79ab 0x78bd 
 
 ; Code
 _entryPoint_                      LDI                               0x28
@@ -230,11 +249,17 @@ _entryPoint_                      LDI                               0x28
 
                                   ClearVertBlinds                                               ; cls
 
+                                  LDI                               0
+                                  STW                               _gravelType                 ; gravelType = MIX1
+
                                   LDI                               255
                                   STW                               _inputDevice                ; inputDevice = 255
 
-                                  LDWI                              _initTank
-                                  CALL                              giga_vAC                    ; gosub initTank
+                                  LDWI                              _drawTank
+                                  CALL                              giga_vAC                    ; gosub drawTank
+
+                                  LDWI                              _drawGravel
+                                  CALL                              giga_vAC                    ; gosub drawGravel
 
                                   LDWI                              _initFish
                                   CALL                              giga_vAC                    ; gosub initFish
@@ -254,7 +279,7 @@ _updateFish                       PUSH
                                   LDI                               0
                                   STW                               _i                          ; for i = 0 to (MAXFISH -1)
 
-_next_0x0265                      LDWI                              0x7bc6
+_next_0x026e                      LDWI                              0x7bc6
                                   ADDW                              _i
                                   PEEK                              
                                   ADDI                              1
@@ -270,7 +295,7 @@ _next_0x0265                      LDWI                              0x7bc6
                                   PEEK                              
                                   SUBI                              100
                                   CALL                              convertGtOpAddr
-                                  JumpFalse                         _endif_0x032d 3             ; if fishTimer(i) > 100
+                                  JumpFalse                         _endif_0x0336 3             ; if fishTimer(i) > 100
 
                                   LDWI                              0x7bc6
                                   ADDW                              _i
@@ -285,43 +310,43 @@ _next_0x0265                      LDWI                              0x7bc6
                                   LDW                               _fishRandom
                                   SUBI                              10
                                   CALL                              convertLtOpAddr
-                                  JumpFalse                         _elseif_0x02f0 0            ; if fishRandom < 10
+                                  JumpFalse                         _elseif_0x02f9 0            ; if fishRandom < 10
 
                                   LDWI                              0x7ca2
                                   ADDW                              _i
                                   STW                               memAddr
                                   LDI                               1
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x032d
+                                  LDWI                              _endif_0x0336
                                   CALL                              giga_vAC                    ; fishThink2(i) = SWIMDOWN
 
-_elseif_0x02f0                    LDW                               _fishRandom
+_elseif_0x02f9                    LDW                               _fishRandom
                                   SUBI                              20
                                   CALL                              convertLtOpAddr
-                                  JumpFalse                         _else_0x031a 1              ; elseif fishRandom < 20
+                                  JumpFalse                         _else_0x0323 1              ; elseif fishRandom < 20
 
                                   LDWI                              0x7ca2
                                   ADDW                              _i
                                   STW                               memAddr
                                   LDI                               0
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x032d
+                                  LDWI                              _endif_0x0336
                                   CALL                              giga_vAC                    ; fishThink2(i) = SWIMUP
 
-_else_0x031a                      LDWI                              0x7ca2
+_else_0x0323                      LDWI                              0x7ca2
                                   ADDW                              _i
-                                  STW                               memAddr
-                                  LDI                               2
-                                  POKE                              memAddr                     ; fishThink2(i) = SWIMFWD
-
-_endif_0x032d                     LDWI                              0x7cab
                                   STLW                              0xFE
                                   LDWI                              _page_0x0300
                                   CALL                              giga_vAC
 _page_0x0300                      LDLW                              0xFE
+                                  STW                               memAddr
+                                  LDI                               2
+                                  POKE                              memAddr                     ; fishThink2(i) = SWIMFWD
+
+_endif_0x0336                     LDWI                              0x7cab
                                   ADDW                              _i
                                   PEEK                              
-                                  JumpEQ                            _elseif_0x03d4 6            ; if fishThink1(i) &= SWIMRIGHT
+                                  JumpEQ                            _elseif_0x03dd 6            ; if fishThink1(i) &= SWIMRIGHT
 
                                   LDWI                              0x7db4
                                   ADDW                              _i
@@ -334,7 +359,7 @@ _page_0x0300                      LDLW                              0xFE
                                   LDW                               0xe8
                                   SUBW                              0xea
                                   CALL                              convertGtOpAddr
-                                  JumpFalse                         _else_0x03ac 4              ; if fishX(i) > fishXmax(i)
+                                  JumpFalse                         _else_0x03b5 4              ; if fishX(i) > fishXmax(i)
 
                                   LDWI                              0x7dbd
                                   ADDW                              _i
@@ -352,10 +377,10 @@ _page_0x0300                      LDLW                              0xFE
                                   STW                               memAddr
                                   LDI                               1
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x03cf
+                                  LDWI                              _endif_0x03d8
                                   CALL                              giga_vAC                    ; fishThink1(i) = SWIMLEFT
 
-_else_0x03ac                      LDWI                              0x7db4
+_else_0x03b5                      LDWI                              0x7db4
                                   ADDW                              _i
                                   PEEK                              
                                   ADDI                              1
@@ -366,14 +391,14 @@ _else_0x03ac                      LDWI                              0x7db4
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishX(i) = fishX(i) + 1
 
-_endif_0x03cf                     LDWI                              _endif_0x0478
+_endif_0x03d8                     LDWI                              _endif_0x0481
                                   CALL                              giga_vAC                    ; endif
 
-_elseif_0x03d4                    LDWI                              0x7cab
+_elseif_0x03dd                    LDWI                              0x7cab
                                   ADDW                              _i
                                   PEEK                              
                                   XORI                              1
-                                  JumpEQ                            _endif_0x0478 9             ; elseif fishThink1(i) &= SWIMLEFT
+                                  JumpEQ                            _endif_0x0481 9             ; elseif fishThink1(i) &= SWIMLEFT
 
                                   LDWI                              0x7db4
                                   ADDW                              _i
@@ -386,7 +411,7 @@ _elseif_0x03d4                    LDWI                              0x7cab
                                   LDW                               0xe8
                                   SUBW                              0xea
                                   CALL                              convertLtOpAddr
-                                  JumpFalse                         _else_0x0455 7              ; if fishX(i) < fishXmin(i)
+                                  JumpFalse                         _else_0x045e 7              ; if fishX(i) < fishXmin(i)
 
                                   LDWI                              0x7dbd
                                   ADDW                              _i
@@ -404,10 +429,10 @@ _elseif_0x03d4                    LDWI                              0x7cab
                                   STW                               memAddr
                                   LDI                               0
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x0478
+                                  LDWI                              _endif_0x0481
                                   CALL                              giga_vAC                    ; fishThink1(i) = SWIMRIGHT
 
-_else_0x0455                      LDWI                              0x7db4
+_else_0x045e                      LDWI                              0x7db4
                                   ADDW                              _i
                                   PEEK                              
                                   SUBI                              1
@@ -418,37 +443,37 @@ _else_0x0455                      LDWI                              0x7db4
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishX(i) = fishX(i) - 1
 
-_endif_0x0478                     LDWI                              0x7ca2
+_endif_0x0481                     LDWI                              0x7ca2
                                   ADDW                              _i
                                   PEEK                              
-                                  JumpEQ                            _elseif_0x04fc 12           ; if fishThink2(i) &= SWIMUP
+                                  JumpEQ                            _elseif_0x0505 12           ; if fishThink2(i) &= SWIMUP
 
                                   LDWI                              0x7dab
                                   ADDW                              _i
                                   PEEK                              
                                   STW                               0xe8
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x0400
+                                  CALL                              giga_vAC
+_page_0x0400                      LDLW                              0xFE
                                   LDWI                              0x7cb4
                                   ADDW                              _i
                                   PEEK                              
                                   STW                               0xea
                                   LDW                               0xe8
-                                  STLW                              0xFE
-                                  LDWI                              _page_0x0400
-                                  CALL                              giga_vAC
-_page_0x0400                      LDLW                              0xFE
                                   SUBW                              0xea
                                   CALL                              convertLtOpAddr
-                                  JumpFalse                         _else_0x04d4 10             ; if fishY(i) < fishYmin(i)
+                                  JumpFalse                         _else_0x04dd 10             ; if fishY(i) < fishYmin(i)
 
                                   LDWI                              0x7ca2
                                   ADDW                              _i
                                   STW                               memAddr
                                   LDI                               1
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x04f7
+                                  LDWI                              _endif_0x0500
                                   CALL                              giga_vAC                    ; fishThink2(i) = SWIMDOWN
 
-_else_0x04d4                      LDWI                              0x7dab
+_else_0x04dd                      LDWI                              0x7dab
                                   ADDW                              _i
                                   PEEK                              
                                   SUBI                              1
@@ -459,14 +484,14 @@ _else_0x04d4                      LDWI                              0x7dab
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishY(i) = fishY(i) - 1
 
-_endif_0x04f7                     LDWI                              _endif_0x057d
+_endif_0x0500                     LDWI                              _endif_0x0586
                                   CALL                              giga_vAC                    ; endif
 
-_elseif_0x04fc                    LDWI                              0x7ca2
+_elseif_0x0505                    LDWI                              0x7ca2
                                   ADDW                              _i
                                   PEEK                              
                                   XORI                              1
-                                  JumpEQ                            _endif_0x057d 15            ; elseif fishThink2(i) &= SWIMDOWN
+                                  JumpEQ                            _endif_0x0586 15            ; elseif fishThink2(i) &= SWIMDOWN
 
                                   LDWI                              0x7dab
                                   ADDW                              _i
@@ -479,17 +504,17 @@ _elseif_0x04fc                    LDWI                              0x7ca2
                                   LDW                               0xe8
                                   SUBW                              0xea
                                   CALL                              convertGtOpAddr
-                                  JumpFalse                         _else_0x055a 13             ; if fishY(i) > fishYmax(i)
+                                  JumpFalse                         _else_0x0563 13             ; if fishY(i) > fishYmax(i)
 
                                   LDWI                              0x7ca2
                                   ADDW                              _i
                                   STW                               memAddr
                                   LDI                               0
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x057d
+                                  LDWI                              _endif_0x0586
                                   CALL                              giga_vAC                    ; fishThink2(i) = SWIMUP
 
-_else_0x055a                      LDWI                              0x7dab
+_else_0x0563                      LDWI                              0x7dab
                                   ADDW                              _i
                                   PEEK                              
                                   ADDI                              1
@@ -500,7 +525,7 @@ _else_0x055a                      LDWI                              0x7dab
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishY(i) = fishY(i) + 1
 
-_endif_0x057d                     ForNextFarInc                     _i _next_0x0265 7           ; next i
+_endif_0x0586                     ForNextFarInc                     _i _next_0x026e 7           ; next i
 
                                   LDI                               2
                                   STW                               waitVBlankNum
@@ -512,7 +537,7 @@ _drawFish                         PUSH
                                   LDI                               0
                                   STW                               _i                          ; for i = 0 to (MAXFISH -1)
 
-_next_0x059b                      LDWI                              0x7dbd
+_next_0x05a4                      LDWI                              0x7dbd
                                   ADDW                              _i
                                   PEEK                              
                                   STW                               spriteId
@@ -527,7 +552,7 @@ _next_0x059b                      LDWI                              0x7dbd
                                   ST                                spriteXY + 1
                                   DrawSprite                                                    ; sprite noFlip, fishSprite(i), fishX(i), fishY(i)
 
-                                  ForNextFarInc                     _i _next_0x059b 7           ; next i
+                                  ForNextFarInc                     _i _next_0x05a4 7           ; next i
 
                                   Return                                                        ; return
 
@@ -535,44 +560,106 @@ _randomFish                       PUSH
                                   LDI                               0
                                   STW                               _i                          ; for i = 0 to (MAXFISH -1)
 
-_next_0x05e7                      LDI                               0x03
+_next_0x05f0                      LDI                               0x03
                                   RandMod                           
                                   STW                               memValue
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x0500
+                                  CALL                              giga_vAC
+_page_0x0500                      LDLW                              0xFE
                                   LDWI                              0x7dc6
                                   ADDW                              _i
                                   STW                               memAddr
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishType(i) = rnd(3)
 
-                                  STLW                              0xFE
-                                  LDWI                              _page_0x0500
-                                  CALL                              giga_vAC
-_page_0x0500                      LDLW                              0xFE
-                                  ForNextFarInc                     _i _next_0x05e7 7           ; next i
+                                  ForNextFarInc                     _i _next_0x05f0 7           ; next i
 
                                   Return                                                        ; return
 
-_checkInput                       PUSH                              
-                                  LD                                giga_buttonState
-                                  STW                               _inputDevice                ; inputDevice = get("BUTTON_STATE")
+_setGravelMix                     PUSH                              
+                                  LDI                               0
+                                  STW                               _i                          ; for i = 0 to 7
 
-                                  LDW                               _inputDevice
-                                  XORI                              127
-                                  CALL                              convertEqOpAddr
-                                  JumpFalse                         _endif_0x063b 16            ; if inputDevice = 127
+_next_0x0621                      LDW                               _gravelType
+                                  JumpEQ                            _elseif_0x0651 16           ; if gravelType &= MIX1
 
-                                  LDWI                              _initTank
-                                  CALL                              giga_vAC                    ; gosub initTank
+                                  LDWI                              0x7bbe
+                                  ADDW                              _i
+                                  PEEK                              
+                                  STW                               memValue
+                                  LDWI                              0x7ba6
+                                  ADDW                              _i
+                                  STW                               memAddr
+                                  LDW                               memValue
+                                  POKE                              memAddr
+                                  LDWI                              _endif_0x06b0
+                                  CALL                              giga_vAC                    ; tankGravel(i) = gravelMix1(i)
 
-                                  LDWI                              _randomFish
-                                  CALL                              giga_vAC                    ; gosub randomFish
+_elseif_0x0651                    LDW                               _gravelType
+                                  XORI                              1
+                                  JumpEQ                            _elseif_0x0683 17           ; elseif gravelType &= MIX2
 
-                                  LDWI                              _initFish
-                                  CALL                              giga_vAC                    ; gosub initFish
+                                  LDWI                              0x7bb6
+                                  ADDW                              _i
+                                  PEEK                              
+                                  STW                               memValue
+                                  LDWI                              0x7ba6
+                                  ADDW                              _i
+                                  STW                               memAddr
+                                  LDW                               memValue
+                                  POKE                              memAddr
+                                  LDWI                              _endif_0x06b0
+                                  CALL                              giga_vAC                    ; tankGravel(i) = gravelMix2(i)
 
-_endif_0x063b                     Return                                                        ; return
+_elseif_0x0683                    LDW                               _gravelType
+                                  XORI                              2
+                                  JumpEQ                            _endif_0x06b0 18            ; elseif gravelType &= MIX3
 
-_initTank                         PUSH                              
+                                  LDWI                              0x7bae
+                                  ADDW                              _i
+                                  PEEK                              
+                                  STW                               memValue
+                                  LDWI                              0x7ba6
+                                  ADDW                              _i
+                                  STW                               memAddr
+                                  LDW                               memValue
+                                  POKE                              memAddr                     ; tankGravel(i) = gravelMix3(i)
+
+_endif_0x06b0                     ForNextFarInc                     _i _next_0x0621 7           ; next i
+
+                                  Return                                                        ; return
+
+_drawGravel                       PUSH                              
+                                  LDWI                              _setGravelMix
+                                  CALL                              giga_vAC                    ; gosub setGravelMix
+
+                                  LDI                               0
+                                  STW                               _x                          ; for x = 0 to 159
+
+_next_0x06ca                      LDI                               110
+                                  STW                               _y                          ; for y = 110 to 119
+
+_next_0x06ce                      LDW                               _x
+                                  ST                                drawPixel_xy
+                                  LDW                               _y
+                                  ST                                drawPixel_xy + 1
+                                  Rand                              
+                                  ANDI                              0x0007
+                                  STW                               memIndex0
+                                  LDWI                              0x7ba6
+                                  ADDW                              memIndex0
+                                  PEEK                              
+                                  ST                                fgbgColour + 1
+                                  DrawPixel                                                     ; pset x, y, tankGravel(rnd(0) AND 7)
+
+                                  ForNextFarInc                     _y _next_0x06ce 119         ; next y
+
+                                  ForNextFarInc                     _x _next_0x06ca 159         ; next x
+
+                                  Return                                                        ; return
+
+_drawTank                         PUSH                              
                                   LDI                               32
                                   ST                                fgbgColour                  ; set BG_COLOUR, 32
 
@@ -585,40 +672,63 @@ _initTank                         PUSH
                                   STW                               drawRectF_y1
                                   LDI                               159
                                   STW                               drawRectF_x2
-                                  LDI                               119
+                                  LDI                               109
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x0600
+                                  CALL                              giga_vAC
+_page_0x0600                      LDLW                              0xFE
                                   STW                               drawRectF_y2
-                                  DrawRectF                                                     ; rectf 0, 0, 159, 119
-
-                                  LDI                               0
-                                  STW                               _x                          ; for x = 0 to 159
-
-_next_0x065f                      LDI                               110
-                                  STW                               _y                          ; for y = 110 to 119
-
-_next_0x0663                      LDW                               _x
-                                  ST                                drawPixel_xy
-                                  LDW                               _y
-                                  ST                                drawPixel_xy + 1
-                                  Rand                              
-                                  ANDI                              0x0007
-                                  STW                               memIndex0
-                                  LDWI                              0x7bbe
-                                  ADDW                              memIndex0
-                                  PEEK                              
-                                  ST                                fgbgColour + 1
-                                  DrawPixel                                                     ; pset x, y, tankGravel(rnd(0) AND 7)
-
-                                  ForNextFarInc                     _y _next_0x0663 119         ; next y
-
-                                  ForNextFarInc                     _x _next_0x065f 159         ; next x
+                                  DrawRectF                                                     ; rectf 0, 0, 159, 109
 
                                   Return                                                        ; return
+
+_checkInput                       PUSH                              
+                                  LD                                giga_buttonState
+                                  STW                               _inputDevice                ; inputDevice = get("BUTTON_STATE")
+
+                                  LDW                               _inputDevice
+                                  XORI                              127
+                                  CALL                              convertEqOpAddr
+                                  JumpFalse                         _elseif_0x0763 19           ; if inputDevice = 127
+
+                                  LDWI                              _drawTank
+                                  CALL                              giga_vAC                    ; gosub drawTank
+
+                                  LDWI                              _randomFish
+                                  CALL                              giga_vAC                    ; gosub randomFish
+
+                                  LDWI                              _initFish
+                                  CALL                              giga_vAC
+                                  LDWI                              _endif_0x0798
+                                  CALL                              giga_vAC                    ; gosub initFish
+
+_elseif_0x0763                    LDW                               _inputDevice
+                                  XORI                              191
+                                  CALL                              convertEqOpAddr
+                                  JumpFalse                         _endif_0x0798 21            ; elseif inputDevice = 191
+
+                                  LDW                               _gravelType
+                                  ADDI                              1
+                                  STW                               _gravelType                 ; gravelType = gravelType + 1
+
+                                  LDW                               _gravelType
+                                  SUBI                              2
+                                  CALL                              convertGtOpAddr
+                                  JumpFalse                         _endif_0x0793 20            ; if gravelType > 2
+
+                                  LDI                               0
+                                  STW                               _gravelType                 ; gravelType = 0
+
+_endif_0x0793                     LDWI                              _drawGravel
+                                  CALL                              giga_vAC                    ; gosub drawGravel
+
+_endif_0x0798                     Return                                                        ; return
 
 _initFish                         PUSH                              
                                   LDI                               0
                                   STW                               _i                          ; for i = 0 to (MAXFISH -1)
 
-_next_0x06b0                      LDI                               0x64
+_next_0x079f                      LDI                               0x64
                                   RandMod                           
                                   STW                               memValue
                                   LDWI                              0x7bc6
@@ -630,7 +740,7 @@ _next_0x06b0                      LDI                               0x64
                                   LDWI                              0x7dc6
                                   ADDW                              _i
                                   PEEK                              
-                                  JumpEQ                            _elseif_0x07c1 17           ; if fishType(i) &= TETRA
+                                  JumpEQ                            _elseif_0x08b0 22           ; if fishType(i) &= TETRA
 
                                   LDWI                              0x7da2
                                   ADDW                              _i
@@ -659,10 +769,6 @@ _next_0x06b0                      LDI                               0x64
                                   LDI                               0x87
                                   RandMod                           
                                   STW                               memValue
-                                  STLW                              0xFE
-                                  LDWI                              _page_0x0600
-                                  CALL                              giga_vAC
-_page_0x0600                      LDLW                              0xFE
                                   LDWI                              0x7db4
                                   ADDW                              _i
                                   STW                               memAddr
@@ -687,6 +793,10 @@ _page_0x0600                      LDLW                              0xFE
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishThink1(i) = rnd(2)
 
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x08a0
+                                  CALL                              giga_vAC
+_page_0x08a0                      LDLW                              0xFE
                                   LDWI                              0x7ca2
                                   ADDW                              _i
                                   STW                               memAddr
@@ -702,14 +812,14 @@ _page_0x0600                      LDLW                              0xFE
                                   STW                               memAddr
                                   LDW                               memValue
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x09aa
+                                  LDWI                              _endif_0x0a99
                                   CALL                              giga_vAC                    ; fishSprite(i) = TETRA1 + fishThink1(i)
 
-_elseif_0x07c1                    LDWI                              0x7dc6
+_elseif_0x08b0                    LDWI                              0x7dc6
                                   ADDW                              _i
                                   PEEK                              
                                   XORI                              1
-                                  JumpEQ                            _elseif_0x08b8 18           ; elseif fishType(i) &= RASBORA
+                                  JumpEQ                            _elseif_0x09a7 23           ; elseif fishType(i) &= RASBORA
 
                                   LDWI                              0x7da2
                                   ADDW                              _i
@@ -729,6 +839,10 @@ _elseif_0x07c1                    LDWI                              0x7dc6
                                   LDI                               95
                                   POKE                              memAddr                     ; fishYmax(i) = 95
 
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x09a0
+                                  CALL                              giga_vAC
+_page_0x09a0                      LDLW                              0xFE
                                   LDWI                              0x7cb4
                                   ADDW                              _i
                                   STW                               memAddr
@@ -766,6 +880,10 @@ _elseif_0x07c1                    LDWI                              0x7dc6
                                   ADDW                              _i
                                   STW                               memAddr
                                   LDI                               2
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x0aa0
+                                  CALL                              giga_vAC
+_page_0x0aa0                      LDLW                              0xFE
                                   POKE                              memAddr                     ; fishThink2(i) = SWIMFWD
 
                                   LDWI                              0x7cab
@@ -777,19 +895,15 @@ _elseif_0x07c1                    LDWI                              0x7dc6
                                   ADDW                              _i
                                   STW                               memAddr
                                   LDW                               memValue
-                                  STLW                              0xFE
-                                  LDWI                              _page_0x08a0
-                                  CALL                              giga_vAC
-_page_0x08a0                      LDLW                              0xFE
                                   POKE                              memAddr
-                                  LDWI                              _endif_0x09aa
+                                  LDWI                              _endif_0x0a99
                                   CALL                              giga_vAC                    ; fishSprite(i) = RASBORA1 + fishThink1(i)
 
-_elseif_0x08b8                    LDWI                              0x7dc6
+_elseif_0x09a7                    LDWI                              0x7dc6
                                   ADDW                              _i
                                   PEEK                              
                                   XORI                              2
-                                  JumpEQ                            _endif_0x09aa 19            ; elseif fishType(i) &= MOLLY
+                                  JumpEQ                            _endif_0x0a99 24            ; elseif fishType(i) &= MOLLY
 
                                   LDWI                              0x7da2
                                   ADDW                              _i
@@ -813,6 +927,10 @@ _elseif_0x08b8                    LDWI                              0x7dc6
                                   ADDW                              _i
                                   STW                               memAddr
                                   LDI                               5
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x0ba0
+                                  CALL                              giga_vAC
+_page_0x0ba0                      LDLW                              0xFE
                                   POKE                              memAddr                     ; fishYmin(i) = 5
 
                                   LDI                               0x82
@@ -821,10 +939,6 @@ _elseif_0x08b8                    LDWI                              0x7dc6
                                   LDWI                              0x7db4
                                   ADDW                              _i
                                   STW                               memAddr
-                                  STLW                              0xFE
-                                  LDWI                              _page_0x09a0
-                                  CALL                              giga_vAC
-_page_0x09a0                      LDLW                              0xFE
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishX(i) = rnd(130)
 
@@ -855,6 +969,10 @@ _page_0x09a0                      LDLW                              0xFE
                                   LDWI                              0x7cab
                                   ADDW                              _i
                                   PEEK                              
+                                  STLW                              0xFE
+                                  LDWI                              _page_0x0ca0
+                                  CALL                              giga_vAC
+_page_0x0ca0                      LDLW                              0xFE
                                   ADDI                              4
                                   STW                               memValue
                                   LDWI                              0x7dbd
@@ -863,11 +981,7 @@ _page_0x09a0                      LDLW                              0xFE
                                   LDW                               memValue
                                   POKE                              memAddr                     ; fishSprite(i) = MOLLY1 + fishThink1(i)
 
-                                  STLW                              0xFE
-                                  LDWI                              _page_0x0aa0
-                                  CALL                              giga_vAC
-_page_0x0aa0                      LDLW                              0xFE
-_endif_0x09aa                     ForNextFarInc                     _i _next_0x06b0 7           ; next i
+_endif_0x0a99                     ForNextFarInc                     _i _next_0x079f 7           ; next i
 
                                   Return                                                        ; return
 
@@ -881,25 +995,25 @@ _endif_0x09aa                     ForNextFarInc                     _i _next_0x0
 ;****************************************************************************************************************************************
 ;****************************************************************************************************************************************
 
-romCheck                          EQU     0x78ac
-convertEqOp                       EQU     0x79a2
-convertLtOp                       EQU     0x74a9
-convertGtOp                       EQU     0x74a0
+romCheck                          EQU     0x77ac
+convertEqOp                       EQU     0x73ba
+convertLtOp                       EQU     0x73b1
+convertGtOp                       EQU     0x73a8
 divide16bit                       EQU     0x67a8
-rand16bit                         EQU     0x73bb
-randMod16bit                      EQU     0x76b0
-scanlineMode                      EQU     0x7aa1
-waitVBlank                        EQU     0x78a0
-waitVBlanks                       EQU     0x75b0
-resetVideoFlags                   EQU     0x75a4
-initClearFuncs                    EQU     0x74b2
+rand16bit                         EQU     0x73a0
+randMod16bit                      EQU     0x75b0
+scanlineMode                      EQU     0x79a1
+waitVBlank                        EQU     0x77a0
+waitVBlanks                       EQU     0x74b0
+resetVideoFlags                   EQU     0x74a4
+initClearFuncs                    EQU     0x78a0
 clearVertBlinds                   EQU     0x66c9
-drawPixel                         EQU     0x77a0
+drawPixel                         EQU     0x76a0
 drawHLine                         EQU     0x65d2
 drawRectF                         EQU     0x66a1
 drawSprite_                       EQU     0x65aa
-drawSprite                        EQU     0x76a3
-soundAllOff                       EQU     0x77ad
+drawSprite                        EQU     0x75a3
+soundAllOff                       EQU     0x76ad
 convertEqOpAddr                   EQU     0x00c0
 convertNeOpAddr                   EQU     0x00c2
 convertLeOpAddr                   EQU     0x00c4

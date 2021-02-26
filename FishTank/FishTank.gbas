@@ -19,6 +19,9 @@ const SWIMLEFT = 1
 const SWIMUP = 0
 const SWIMDOWN = 1
 const SWIMFWD = 2
+const MIX1 = 0
+const MIX2 = 1
+const MIX3 = 2
 
 ' ------------------
 '   Sprites
@@ -52,15 +55,24 @@ dim fishThink2%(MAXFISH)
 dim fishTimer%(MAXFISH)
 
 ' ------------------
+'   Tank Vars
+' ------------------
+dim gravelMix1%(7) = 0, 6, 22, 10, 47, 42, 47
+dim gravelMix2%(7) = 0, 6, 22, 10, 47, 42, 3
+dim gravelMix3%(7) = 0, 6, 22, 10, 47, 49, 33
+dim tankGravel%(7)
+gravelType = MIX1
+
+' ------------------
 '   Other Vars
 ' ------------------
-dim tankGravel%(7) = 0, 6, 22, 10, 47, 42, 47
 inputDevice = 255
 
 ' ------------------
 '   Game Setup
 ' ------------------
-gosub initTank
+gosub drawTank
+gosub drawGravel
 gosub initFish
 
 ' ------------------
@@ -138,15 +150,52 @@ randomFish:
 return
 
 ' ------------------
+'   Tank
+' ------------------
+setGravelMix:
+    for i = 0 to 7
+        if gravelType &= MIX1
+            tankGravel(i) = gravelMix1(i)
+        elseif gravelType &= MIX2
+            tankGravel(i) = gravelMix2(i)
+        elseif gravelType &= MIX3
+            tankGravel(i) = gravelMix3(i)
+        endif
+    next i
+return
+
+drawGravel:
+    gosub setGravelMix
+
+    for x = 0 to 159
+        for y = 110 to 119 
+            pset x, y, tankGravel(rnd(0) AND 7)
+        next y
+    next x
+return
+
+drawTank:
+    set BG_COLOUR, 32
+    set FG_COLOUR, 32
+    rectf 0, 0, 159, 109
+return
+
+' ------------------
 '   Input
 ' ------------------
 checkInput:
     inputDevice = get("BUTTON_STATE")
 
     if inputDevice = 127
-        gosub initTank
+        gosub drawTank
         gosub randomFish
         gosub initFish
+    elseif inputDevice = 191
+        gravelType = gravelType + 1
+        if gravelType > 2
+            gravelType = 0
+        endif
+        gosub drawGravel
     endif
 return
 
@@ -158,18 +207,6 @@ return
 ' ------------------
 '   Init
 ' ------------------
-initTank:
-    set BG_COLOUR, 32
-    set FG_COLOUR, 32
-    rectf 0, 0, 159, 119
-
-    for x = 0 to 159
-        for y = 110 to 119 
-            pset x, y, tankGravel(rnd(0) AND 7)
-        next y
-    next x
-return
-
 initFish:
     for i = 0 to (MAXFISH -1)
         fishTimer(i) = rnd(100)
