@@ -27,17 +27,17 @@ const MIX3 = 2
 '   Sprites
 ' ------------------
 const TETRA1 = 0
-load sprite, ./graphics/cardinalTetra1.tga, TETRA1
+load sprite, ./graphics/cardinalTetra.tga, TETRA1
 const TETRA2 = 1
-load sprite, ./graphics/cardinalTetra2.tga, TETRA2
+load sprite, ./graphics/cardinalTetra.tga, TETRA2, FlipX
 const RASBORA1 = 2
-load sprite, ./graphics/harlequinRasbora1.tga, RASBORA1
+load sprite, ./graphics/harlequinRasbora.tga, RASBORA1
 const RASBORA2 = 3
-load sprite, ./graphics/harlequinRasbora2.tga, RASBORA2
+load sprite, ./graphics/harlequinRasbora.tga, RASBORA2, FlipX
 const MOLLY1 = 4
-load sprite, ./graphics/molly1.tga, MOLLY1
+load sprite, ./graphics/molly.tga, MOLLY1
 const MOLLY2 = 5
-load sprite, ./graphics/molly2.tga, MOLLY2
+load sprite, ./graphics/molly.tga, MOLLY2, FlipX
 
 ' ------------------
 '   Fish Arrays
@@ -139,7 +139,11 @@ return
 
 drawFish:
     for i = 0 to (MAXFISH -1)
-        sprite noFlip, fishSprite(i), fishX(i), fishY(i)
+        if fishThink1(i) &= SWIMRIGHT
+            sprite noFlip, fishSprite(i), fishX(i), fishY(i)
+        else
+            sprite FlipX, fishSprite(i), fishX(i), fishY(i)
+        endif
     next i
 return
 
