@@ -79,4 +79,4 @@ Usage examples and udev rules for minipro.
 
 ## ROM
 Custom Gigatron ROM files (SD and non-SD versions).
-See [Makefile.custom](https://github.com/delpozzo/gigatron/blob/master/rom/Makefile.custom) for included apps.
+See [Makefile.custom](blob/master/rom/Makefile.custom) for included apps.
