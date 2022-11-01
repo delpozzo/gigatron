@@ -1,5 +1,11 @@
-HEX mode example:
-minipro -p "SST39SF020A" -w "build/output/rom.hex" -f ihex
+--------------------
+  Read
+--------------------
+minipro -p "M27C1024@DIP40" -r /path/to/rom.hex -f ihex
 
-Normal example:
-minipro -p "M27C1024@DIP40" -w ../gigatron-rom-master/ROMv5a.rom 
+--------------------
+  Write/Burn
+--------------------
+minipro -p "M27C1024@DIP40" -w /path/to/dev.rom
+		-or-
+minipro -p "M27C1024@DIP40" -w /path/to/dev.hex -f ihex
